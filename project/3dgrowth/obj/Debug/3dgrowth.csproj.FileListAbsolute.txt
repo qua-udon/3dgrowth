@@ -1,0 +1,11 @@
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bin\Debug\3dgrowth.exe.config
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\obj\Debug\3dgrowth.csprojResolveAssemblyReference.cache
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\obj\Debug\_3dgrowth.Properties.Resources.resources
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\obj\Debug\3dgrowth.csproj.GenerateResource.Cache
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bin\Debug\3dgrowth.exe
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bin\Debug\3dgrowth.pdb
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bin\Debug\SlimDX.dll
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bin\Debug\SlimDX.pdb
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bin\Debug\SlimDX.xml
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\obj\Debug\3dgrowth.exe
+c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\obj\Debug\3dgrowth.pdb
