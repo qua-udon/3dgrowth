@@ -9,3 +9,6 @@ c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bi
 c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\bin\Debug\SlimDX.xml
 c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\obj\Debug\3dgrowth.exe
 c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\obj\Debug\3dgrowth.pdb
+C:\work\3dgrowth\project\3dgrowth\bin\Debug\3dgrowth.exe.config
+C:\work\3dgrowth\project\3dgrowth\obj\Debug\3dgrowth.exe
+C:\work\3dgrowth\project\3dgrowth\obj\Debug\3dgrowth.pdb

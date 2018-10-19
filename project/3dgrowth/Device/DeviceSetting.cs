@@ -4,11 +4,18 @@ using SlimDX.Direct3D11;
 
 namespace _3dgrowth
 {
+    /// <summary>
+    /// ゲート0: 初期化
+    /// </summary>
     public class DeviceSetting
     {
         private Device _device;
         private SlimDX.DXGI.SwapChain _swapChain;
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <param name="form">ウィンドウフォーム</param>
         public void InitializeDevice(Form form)
         {
             Device.CreateWithSwapChain(
@@ -19,12 +26,18 @@ namespace _3dgrowth
                        out _swapChain);
         }
 
+        /// <summary>
+        /// 解放
+        /// </summary>
         public void DisposeDevice()
         {
             _device.Dispose();
             _swapChain.Dispose();
         }
 
+        /// <summary>
+        /// 初期化に必要な構造体の設定をまとめたもの
+        /// </summary>
         private static class DeviceDefine
         {
             /// <summary>
