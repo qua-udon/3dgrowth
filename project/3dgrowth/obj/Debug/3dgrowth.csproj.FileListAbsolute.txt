@@ -12,3 +12,12 @@ c:\users\住田直樹\documents\visual studio 2015\Projects\3dgrowth\3dgrowth\ob
 C:\work\3dgrowth\project\3dgrowth\bin\Debug\3dgrowth.exe.config
 C:\work\3dgrowth\project\3dgrowth\obj\Debug\3dgrowth.exe
 C:\work\3dgrowth\project\3dgrowth\obj\Debug\3dgrowth.pdb
+C:\work\3dgrowth\project\3dgrowth\obj\Debug\3dgrowth.csprojResolveAssemblyReference.cache
+C:\work\3dgrowth\project\3dgrowth\obj\Debug\_3dgrowth.D3D11Form.resources
+C:\work\3dgrowth\project\3dgrowth\obj\Debug\_3dgrowth.Properties.Resources.resources
+C:\work\3dgrowth\project\3dgrowth\obj\Debug\3dgrowth.csproj.GenerateResource.Cache
+C:\work\3dgrowth\project\3dgrowth\bin\Debug\3dgrowth.exe
+C:\work\3dgrowth\project\3dgrowth\bin\Debug\3dgrowth.pdb
+C:\work\3dgrowth\project\3dgrowth\bin\Debug\SlimDX.dll
+C:\work\3dgrowth\project\3dgrowth\bin\Debug\SlimDX.pdb
+C:\work\3dgrowth\project\3dgrowth\bin\Debug\SlimDX.xml

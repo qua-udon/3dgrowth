@@ -8,10 +8,14 @@ namespace _3dgrowth
 {
     static class Program
     {
+        [STAThread]
         static void Main()
         {
             var form = new D3D11Form();
-            Application.Run(form);
+            form.Show();
+
+            var timer = new FPSTimer(form);
+            timer.StartTimer();
         }
     }
 }
