@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace _3dgrowth
 {
+    /// <summary>
+    /// ゲート0:FPS計測
+    /// </summary>
     public class FPSTimer
     {
         private const double WAIT_TIME = 1000.0f / 60.0f;
@@ -31,7 +34,6 @@ namespace _3dgrowth
                     //メインの処理
                     ontickedCallbackPerFrame?.Invoke();
 
-                    _form.SetFPSView();
                     targetTime += WAIT_TIME;
                 }
                 System.Threading.Thread.Sleep(1);

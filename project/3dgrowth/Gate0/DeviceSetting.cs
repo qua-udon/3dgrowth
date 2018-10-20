@@ -7,10 +7,13 @@ namespace _3dgrowth
     /// <summary>
     /// ゲート0: 初期化
     /// </summary>
-    public class DeviceSetting
+    public class DeviceSetting : System.IDisposable
     {
         private Device _device;
+        public Device Device => _device;
+
         private SlimDX.DXGI.SwapChain _swapChain;
+        public SlimDX.DXGI.SwapChain SwapChain => _swapChain;
 
         /// <summary>
         /// 初期化
@@ -29,7 +32,7 @@ namespace _3dgrowth
         /// <summary>
         /// 解放
         /// </summary>
-        public void DisposeDevice()
+        public void Dispose()
         {
             _device.Dispose();
             _swapChain.Dispose();

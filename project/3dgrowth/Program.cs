@@ -12,10 +12,7 @@ namespace _3dgrowth
         static void Main()
         {
             var form = new D3D11Form();
-            form.Show();
-
-            var timer = new FPSTimer(form);
-            timer.StartTimer();
+            form.Run();
         }
     }
 }

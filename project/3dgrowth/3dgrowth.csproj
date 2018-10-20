@@ -51,7 +51,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Gate0\DeviceSetting.cs" />
+    <Compile Include="Gate0\DrawTriangle.cs" />
     <Compile Include="Gate0\FPSTimer.cs" />
+    <Compile Include="Gate0\RenderTargetting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="D3D11Form.resx">
@@ -78,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EffectTest.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

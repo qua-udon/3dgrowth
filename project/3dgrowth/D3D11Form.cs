@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _3dgrowth
 {
@@ -10,16 +11,42 @@ namespace _3dgrowth
     {
         private int _fps;
         private int _oldTime;
-        private System.Windows.Forms.Label label1;
+        private FPSTimer _timer;
+
         private DeviceSetting _deviceSetting = new DeviceSetting();
+        private RenderTargetting _renderTargetting;
+        private DrawTriangle _drawTriangle = new DrawTriangle();
+
+        private System.Windows.Forms.Label label1;
 
         public D3D11Form()
         {
             InitializeComponent();
             _deviceSetting.InitializeDevice(this);
+            _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain);
+            _timer = new FPSTimer(this);
         }
 
-        public void SetFPSView()
+        public void Run()
+        {
+            Show();
+            _timer.ontickedCallbackPerFrame += () => _renderTargetting.Draw();
+            _timer.ontickedCallbackPerFrame += () => _drawTriangle.Draw(_deviceSetting.Device);
+            _timer.ontickedCallbackPerFrame += SetFPSView;
+            _timer.StartTimer();
+        }
+
+
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            _deviceSetting.Dispose();
+            _renderTargetting.Dispose();
+            _drawTriangle.Dispose();
+            base.OnFormClosed(e);
+        }
+
+        private void SetFPSView()
         {
             _fps++;
             if (Environment.TickCount >= _oldTime + 1000)
@@ -30,6 +57,7 @@ namespace _3dgrowth
             }
         }
 
+        #region GUI
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
@@ -38,7 +66,7 @@ namespace _3dgrowth
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(141, 126);
+            this.label1.Location = new System.Drawing.Point(227, 229);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 15);
             this.label1.TabIndex = 0;
@@ -59,5 +87,6 @@ namespace _3dgrowth
         {
 
         }
+        #endregion
     }
 }
