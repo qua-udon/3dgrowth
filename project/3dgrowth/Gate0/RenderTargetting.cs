@@ -16,12 +16,17 @@ namespace _3dgrowth
             using (Texture2D backBuffer = Resource.FromSwapChain<Texture2D>(swapChain, 0))
             {
                 _renderTargetView = new RenderTargetView(device, backBuffer);
+                _device.ImmediateContext.OutputMerger.SetTargets(_renderTargetView);
             }
         }
 
-        public void Draw()
+        public void Clear()
         {
-            _device.ImmediateContext.ClearRenderTargetView(_renderTargetView, new SlimDX.Color4(1, 0, 0, 1));
+            _device.ImmediateContext.ClearRenderTargetView(_renderTargetView, new SlimDX.Color4(1, 0, 0.6f, 0.2f));
+        }
+
+        public void PresentView()
+        {
             _swapChain.Present(0, SlimDX.DXGI.PresentFlags.None);
         }
 

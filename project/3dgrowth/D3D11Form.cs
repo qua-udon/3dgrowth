@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SlimDX;
+using SlimDX.Direct3D11;
 
 namespace _3dgrowth
 {
@@ -15,28 +17,36 @@ namespace _3dgrowth
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private DrawTriangle _drawTriangle = new DrawTriangle();
+        private DrawTriangle _drawTriangle;
 
         private System.Windows.Forms.Label label1;
 
         public D3D11Form()
         {
             InitializeComponent();
-            _deviceSetting.InitializeDevice(this);
-            _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain);
             _timer = new FPSTimer(this);
         }
 
         public void Run()
         {
             Show();
-            _timer.ontickedCallbackPerFrame += () => _renderTargetting.Draw();
-            _timer.ontickedCallbackPerFrame += () => _drawTriangle.Draw(_deviceSetting.Device);
-            _timer.ontickedCallbackPerFrame += SetFPSView;
+            _deviceSetting.InitializeDevice(this);
+            _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain);
+            InitializeViewport();
+            _drawTriangle = new DrawTriangle(_deviceSetting.Device);
+            _drawTriangle.InitializeContent();
+            _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
         }
 
-
+        private void MainLoop()
+        {
+            _renderTargetting.Clear();
+            _drawTriangle.InitializeTriangleInputAssembler();
+            _drawTriangle.Draw();
+            _renderTargetting.PresentView();
+            SetFPSView();
+        }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
@@ -55,6 +65,17 @@ namespace _3dgrowth
                 label1.Text = _fps.ToString();
                 _fps = 0;
             }
+        }
+
+        private void InitializeViewport()
+        {
+            _deviceSetting.Device.ImmediateContext.Rasterizer.SetViewports(
+                new Viewport
+                {
+                    Width = ClientSize.Width,
+                    Height = ClientSize.Height,
+                }
+                );
         }
 
         #region GUI

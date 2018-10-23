@@ -9,7 +9,7 @@ namespace _3dgrowth
     /// </summary>
     public class DeviceSetting : System.IDisposable
     {
-        private Device _device;
+        public Device _device;
         public Device Device => _device;
 
         private SlimDX.DXGI.SwapChain _swapChain;

@@ -1,18 +1,20 @@
-﻿float4 MyVertexShader(float4 position : SV_Position) : SV_Position
+﻿matrix ViewProjection;
+
+float4 TestVertexShader(float4 position : SV_Position) : SV_Position
 {
-	return position;
+	return mul(position, ViewProjection);
 }
 
-float4 MyPixelShader() : SV_Target
+float4 TestPixelShader() : SV_Target
 {
 	return float4(1, 1, 1, 1);
 }
 
-technique10 MyTechnique
+technique10 TestTechnique
 {
-	pass MyPass
+	pass TestPass
 	{
-		SetVertexShader(CompileShader(vs_5_0, MyVertexShader()));
-		SetPixelShader(CompileShader(ps_5_0, MyPixelShader()));
+		SetVertexShader(CompileShader(vs_5_0, TestVertexShader()));
+		SetPixelShader(CompileShader(ps_5_0, TestPixelShader()));
 	}
 }

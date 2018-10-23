@@ -9,50 +9,60 @@ namespace _3dgrowth
     /// </summary>
     public class DrawTriangle : System.IDisposable
     {
+        private Device _device;
         private Buffer _vertexBuffer;
         private InputLayout _inputLayout;
+        private Effect _effect;
 
-        public void Draw(Device device)
+        public DrawTriangle(Device device)
         {
-            InitializeTriangleInputAssembler(device);
-            device.ImmediateContext.Draw(3, 0);
+            _device = device;
         }
 
-        private void InitializeTriangleInputAssembler(Device device)
+        public void Draw()
         {
-            _inputLayout = CreateInputLayout(device);
-            _vertexBuffer = CreateVertexBuffer(device, TriangleVertice);
-            device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, sizeof(float) * 3, 0));
-            device.ImmediateContext.InputAssembler.InputLayout = _inputLayout;
-            device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
+            _effect.GetTechniqueByIndex(0).GetPassByIndex(0).Apply(_device.ImmediateContext);
+            _device.ImmediateContext.Draw(3, 0);
+        }
+
+        public void InitializeContent()
+        {
+            _effect = CreateEffect();
+            _inputLayout = CreateInputLayout();
+            _vertexBuffer = CreateVertexBuffer(TriangleVertice);
+        }
+
+        public void InitializeTriangleInputAssembler()
+        {
+            _device.ImmediateContext.InputAssembler.InputLayout = _inputLayout;
+            _device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, sizeof(float) * 3, 0));
+            _device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
         }
 
         public void Dispose()
         {
             _vertexBuffer?.Dispose();
             _inputLayout?.Dispose();
+            _effect?.Dispose();
         }
 
-        private InputLayout CreateInputLayout(Device device)
+        private InputLayout CreateInputLayout()
         {
-            using (Effect effect = CreateEffect(device))
-            {
-                return new InputLayout(device, effect.GetTechniqueByIndex(0).GetPassByIndex(0).Description.Signature,
-                new InputElement[]
+            return new InputLayout(_device, _effect.GetTechniqueByIndex(0).GetPassByIndex(0).Description.Signature,
+                new []
                 {
                     new InputElement
                     {
                         SemanticName = "SV_Position",
-                        Format = SlimDX.DXGI.Format.R32G32B32A32_Float
+                        Format = SlimDX.DXGI.Format.R32G32B32_Float
                     }
                 });
-            }
         }
 
-        private Buffer CreateVertexBuffer(Device device, System.Array vertice)
+        private Buffer CreateVertexBuffer(System.Array vertice)
         {
             DataStream stream = new DataStream(vertice, true, true);
-            return new Buffer(device, stream,
+            return new Buffer(_device, stream,
                 new BufferDescription
                 {
                     SizeInBytes = (int)stream.Length,
@@ -60,10 +70,27 @@ namespace _3dgrowth
                 });
         }
 
-        private Effect CreateEffect(Device device)
+        private Effect CreateEffect()
         {
-            ShaderBytecode shader = ShaderBytecode.CompileFromFile("EffectTest.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None);
-            return new Effect(device, shader);
+            ShaderBytecode shader = ShaderBytecode.CompileFromFile("C:/work/3dgrowth/project/3dgrowth/EffectTest.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None);
+            return new Effect(_device, shader);
+        }
+
+        public void SetView(System.Windows.Forms.Form form)
+        {
+            Matrix view = Matrix.LookAtRH(
+                new Vector3(0, 0, -3),
+                new Vector3(),
+                new Vector3(0, 1, 0)
+            );
+
+            Matrix projection = Matrix.PerspectiveFovRH(
+                (float)System.Math.PI / 2,
+                form.ClientSize.Width / form.ClientSize.Height,
+                0.1f, 1000
+            );
+
+            _effect.GetVariableByName("ViewProjection").AsMatrix().SetMatrix(view * projection);
         }
 
         private static System.Array TriangleVertice
@@ -72,9 +99,9 @@ namespace _3dgrowth
             {
                 return new[]
                 {
-                    new Vector3(-1, 0, 0),
-                    new Vector3(1, 0, 0),
-                    new Vector3(0, 1, 0),
+                    new Vector3(0, 1f, 0),
+                    new Vector3(1f, 0, 0),
+                    new Vector3(-1f, 0, 0),
                 };
             }
         }
