@@ -1,13 +1,21 @@
 ﻿matrix ViewProjection;
-
-float4 TestVertexShader(float4 position : SV_Position) : SV_Position
+ 
+struct VertexPositionColor
 {
-	return mul(position, ViewProjection);
+    float4 Position : SV_Position;
+    float4 Color : COLOR;
+};
+ 
+VertexPositionColor TestVertexShader(VertexPositionColor input)
+{
+    VertexPositionColor output = input;
+    output.Position = mul(output.Position, ViewProjection);
+    return output;
 }
 
-float4 TestPixelShader() : SV_Target
+float4 TestPixelShader(VertexPositionColor input) : SV_Target
 {
-	return float4(1, 1, 1, 1);
+	return input.Color;
 }
 
 technique10 TestTechnique

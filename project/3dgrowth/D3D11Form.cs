@@ -42,6 +42,7 @@ namespace _3dgrowth
         private void MainLoop()
         {
             _renderTargetting.Clear();
+            _drawTriangle.SetView(this);
             _drawTriangle.InitializeTriangleInputAssembler();
             _drawTriangle.Draw();
             _renderTargetting.PresentView();
