@@ -13,6 +13,7 @@ namespace _3dgrowth
     public class FPSTimer
     {
         private const double WAIT_TIME = 1000.0f / 60.0f;
+        public double GlobalTime;
 
         public Action ontickedCallbackPerFrame;
 
@@ -25,16 +26,16 @@ namespace _3dgrowth
 
         public void StartTimer()
         {
-            var targetTime = (double)Environment.TickCount;
-            targetTime += WAIT_TIME;
+            GlobalTime = (double)Environment.TickCount;
+            GlobalTime += WAIT_TIME;
             while (_form.Created)
             {
-                if ((double)Environment.TickCount >= targetTime)
+                if ((double)Environment.TickCount >= GlobalTime)
                 {
                     //メインの処理
                     ontickedCallbackPerFrame?.Invoke();
 
-                    targetTime += WAIT_TIME;
+                    GlobalTime += WAIT_TIME;
                 }
                 System.Threading.Thread.Sleep(1);
                 Application.DoEvents();

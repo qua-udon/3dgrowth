@@ -13,10 +13,12 @@ namespace _3dgrowth
         private Buffer _vertexBuffer;
         private InputLayout _inputLayout;
         private Effect _effect;
+        private double _theta;
 
         public DrawTriangle(Device device)
         {
             _device = device;
+            _theta = 0d;
         }
 
         public void Draw()
@@ -84,11 +86,11 @@ namespace _3dgrowth
 
         public void SetView(System.Windows.Forms.Form form)
         {
-            double time = System.Environment.TickCount / 500d;
+            _theta += System.Math.PI / 360d;
             Matrix view = Matrix.LookAtRH(
-                new Vector3(0f, 0f, -3f),
+                new Vector3(0, 0, -3f),
                 new Vector3(),
-                new Vector3(0, 1, 0)
+                new Vector3((float)System.Math.Sin(_theta), (float)System.Math.Cos(_theta), 0)
             );
 
             Matrix projection = Matrix.PerspectiveFovRH(
