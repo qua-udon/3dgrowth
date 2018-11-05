@@ -35,7 +35,7 @@ namespace _3dgrowth
         public void InitializeTriangleInputAssembler()
         {
             _device.ImmediateContext.InputAssembler.InputLayout = _inputLayout;
-            _device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, sizeof(float) * 3, 0));
+            _device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, VertexPositionColor.SizeInBytes, 0));
             _device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
         }
 
@@ -106,10 +106,52 @@ namespace _3dgrowth
             {
                 return new[]
                 {
-                    new Vector3(-1f, 0f, 0f),
-                    new Vector3(1f, 0f, 0f),
-                    new Vector3(0f, 1f, 0f),
+                    new VertexPositionColor
+                    {
+                        Position = new Vector3(-1, 0, 0),
+                        Color = new Vector3(1, 0, 0)
+                    },
+                    new VertexPositionColor
+                    {
+                        Position = new Vector3(1, 0, 0),
+                        Color = new Vector3(0, 1, 0)
+                    },
+                    new VertexPositionColor
+                    {
+                        Position = new Vector3(0, 1, 0),
+                        Color = new Vector3(0, 0, 1)
+                    },
                 };
+            }
+        }
+
+        struct VertexPositionColor
+        {
+            public Vector3 Position;
+            public Vector3 Color;
+
+            public static readonly InputElement[] VertexElements = new[]
+            {
+                new InputElement
+                {
+                    SemanticName = "SV_Position",
+                    Format = SlimDX.DXGI.Format.R32G32B32_Float
+                },
+                new InputElement
+                {
+                    SemanticName = "COLOR",
+                    Format = SlimDX.DXGI.Format.R32G32B32_Float,
+                    AlignedByteOffset = InputElement.AppendAligned//自動的にオフセット決定
+                }
+            };
+
+            public static int SizeInBytes
+            {
+                get
+                {
+                    return System.Runtime.InteropServices.
+                        Marshal.SizeOf(typeof(VertexPositionColor));
+                }
             }
         }
     }
