@@ -92,5 +92,15 @@ namespace _3dgrowth.Properties {
                 return ResourceManager.GetString("EffectTest", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap Texture {
+            get {
+                object obj = ResourceManager.GetObject("Texture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

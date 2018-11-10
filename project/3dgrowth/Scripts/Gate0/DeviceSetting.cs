@@ -27,6 +27,11 @@ namespace _3dgrowth
                        DeviceDefine.GetSwapChainDescriptionDefine(form),
                        out _device,
                        out _swapChain);
+
+            _device.ImmediateContext.Rasterizer.State = RasterizerState.FromDescription(
+                _device,
+                DeviceDefine.GetRasterizerStateDescription
+            ); ;
         }
 
         /// <summary>
@@ -91,6 +96,20 @@ namespace _3dgrowth
                 };
             }
 
+            /// <summary>
+            /// 描画周りのラスタライザ設定
+            /// </summary>
+            public static RasterizerStateDescription GetRasterizerStateDescription
+            {
+                get
+                {
+                    return new RasterizerStateDescription
+                    {
+                        FillMode = FillMode.Solid,
+                        CullMode = CullMode.None,
+                    };
+                }
+            }
             /// <summary>
             /// リフレッシュレート
             /// </summary>

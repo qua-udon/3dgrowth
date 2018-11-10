@@ -1,4 +1,5 @@
 ﻿using System;
+using SlimDX;
 using Microsoft.DirectX.DirectInput;
 
 namespace _3dgrowth
@@ -10,16 +11,24 @@ namespace _3dgrowth
         public Action<int, int, int> onMouseInputHandleCallback;
         public Action<DirectionX, DirectionY> onKeyInputHandleCallback;
 
+        private Vector3 _cachedMousePos;
+
         public DirectInputDetector()
         {
-            _device = new Device(SystemGuid.Keyboard);
+            _device = new Device(SystemGuid.Mouse);
             _device.Acquire();
+            _cachedMousePos = new Vector3();
         }
 
         public void CheckMouseInput()
         {
             var mouseState = _device.CurrentMouseState;
+            if(mouseState.GetMouseButtons()[0] == 0)
+            {
+                return;
+            }
             onMouseInputHandleCallback?.Invoke(mouseState.X, mouseState.Y, mouseState.Z);
+            _cachedMousePos = new Vector3(mouseState.X, mouseState.Y, mouseState.Z);
         }
 
         public void CheckKeyBoardInput()

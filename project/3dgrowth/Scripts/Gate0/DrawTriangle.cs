@@ -15,13 +15,15 @@ namespace _3dgrowth
         private Effect _effect;
         private double _theta;
         private DirectInputDetector _detector;
+        private Vector3 _cameraAngle;
 
         public DrawTriangle(Device device)
         {
             _device = device;
             _theta = 0d;
+            _cameraAngle = new Vector3();
             _detector = new DirectInputDetector();
-            _detector.onKeyInputHandleCallback = (x, y) => Rotate(x);
+            _detector.onMouseInputHandleCallback = RotateCamera;
         }
 
         public void Draw()
@@ -89,9 +91,9 @@ namespace _3dgrowth
 
         public void SetView(System.Windows.Forms.Form form)
         {
-            _detector.CheckKeyBoardInput();
+            _detector.CheckMouseInput();
             Matrix view = Matrix.LookAtLH(
-                new Vector3(0, 0, -3f),
+                new Vector3(0, 0, -3f).RotateByAxis(MathUtility.Axis.Y, _cameraAngle.X).RotateByAxis(MathUtility.Axis.X, _cameraAngle.Y),
                 new Vector3(),
                 new Vector3(0, 1, 0)
             );
@@ -109,12 +111,18 @@ namespace _3dgrowth
         {
             if(dir == DirectionX.Left)
             {
-                _theta -= System.Math.PI / 360d;
+                _theta += System.Math.PI / 360d;
             }
             else if(dir == DirectionX.Right)
             {
-                _theta += System.Math.PI / 360d;
+                _theta -= System.Math.PI / 360d;
             }
+        }
+
+        private void RotateCamera(int x, int y, int z)
+        {
+            _cameraAngle += new Vector3((float)x * (float)(System.Math.PI / 360d), (float)y * (float)(System.Math.PI / 360d), z);
+            _cameraAngle = new Vector3(_cameraAngle.X, _cameraAngle.Y.Clamp<float>((float)-System.Math.PI / 2f, (float)System.Math.PI / 2f), _cameraAngle.Z);
         }
 
         private System.Array TriangleVertice
