@@ -10,9 +10,10 @@ namespace _3dgrowth
         public Action<int, int, int> onMouseInputHandleCallback;
         public Action<DirectionX, DirectionY> onKeyInputHandleCallback;
 
-        public DirectInputDetector(Guid type)
+        public DirectInputDetector()
         {
-            _device = new Device(type);
+            _device = new Device(SystemGuid.Keyboard);
+            _device.Acquire();
         }
 
         public void CheckMouseInput()

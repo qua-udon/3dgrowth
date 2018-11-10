@@ -22,7 +22,7 @@ technique10 TestTechnique
 {
 	pass TestPass
 	{
-		SetVertexShader(CompileShader(vs_5_0, TestVertexShader()));
-		SetPixelShader(CompileShader(ps_5_0, TestPixelShader()));
+		SetVertexShader(CompileShader(vs_4_1, TestVertexShader()));
+		SetPixelShader(CompileShader(ps_4_1, TestPixelShader()));
 	}
 }

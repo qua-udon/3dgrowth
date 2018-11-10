@@ -22,14 +22,14 @@ namespace _3dgrowth.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Resource1 {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resource1() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace _3dgrowth.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("_3dgrowth.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("_3dgrowth.Properties.Resource1", typeof(Resource1).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,39 @@ namespace _3dgrowth.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   matrix ViewProjection;
+        /// 
+        ///struct VertexPositionColor
+        ///{
+        ///    float4 Position : SV_Position;
+        ///    float4 Color : COLOR;
+        ///};
+        /// 
+        ///VertexPositionColor TestVertexShader(VertexPositionColor input)
+        ///{
+        ///    VertexPositionColor output = input;
+        ///    output.Position = mul(output.Position, ViewProjection);
+        ///    return output;
+        ///}
+        ///
+        ///float4 TestPixelShader(VertexPositionColor input) : SV_Target
+        ///{
+        ///	return input.Color;
+        ///}
+        ///
+        ///technique10 TestTechnique
+        ///{
+        ///	pass TestPass
+        ///	{
+        ///		SetVertexShader(CompileShader(vs_4_1, TestVe [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string EffectTest {
+            get {
+                return ResourceManager.GetString("EffectTest", resourceCulture);
             }
         }
     }

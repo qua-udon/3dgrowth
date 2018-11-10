@@ -34,7 +34,6 @@ namespace _3dgrowth
             _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain);
             InitializeViewport();
             _drawTriangle = new DrawTriangle(_deviceSetting.Device);
-            _drawTriangle.InitializeContent();
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
         }
@@ -42,6 +41,7 @@ namespace _3dgrowth
         private void MainLoop()
         {
             _renderTargetting.Clear();
+            _drawTriangle.InitializeContent();
             _drawTriangle.SetView(this);
             _drawTriangle.InitializeTriangleInputAssembler();
             _drawTriangle.Draw();

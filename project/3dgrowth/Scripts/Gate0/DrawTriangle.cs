@@ -14,11 +14,14 @@ namespace _3dgrowth
         private InputLayout _inputLayout;
         private Effect _effect;
         private double _theta;
+        private DirectInputDetector _detector;
 
         public DrawTriangle(Device device)
         {
             _device = device;
             _theta = 0d;
+            _detector = new DirectInputDetector();
+            _detector.onKeyInputHandleCallback = (x, y) => Rotate(x);
         }
 
         public void Draw()
@@ -80,20 +83,20 @@ namespace _3dgrowth
 
         private Effect CreateEffect()
         {
-            ShaderBytecode shader = ShaderBytecode.CompileFromFile("C:/work/3dgrowth/project/3dgrowth/EffectTest.fx", "fx_5_0", ShaderFlags.None, EffectFlags.None);
+            ShaderBytecode shader = ShaderBytecode.Compile(Properties.Resource1.EffectTest, "fx_5_0", ShaderFlags.None, EffectFlags.None);
             return new Effect(_device, shader);
         }
 
         public void SetView(System.Windows.Forms.Form form)
         {
-            _theta += System.Math.PI / 360d;
-            Matrix view = Matrix.LookAtRH(
+            _detector.CheckKeyBoardInput();
+            Matrix view = Matrix.LookAtLH(
                 new Vector3(0, 0, -3f),
                 new Vector3(),
-                new Vector3((float)System.Math.Sin(_theta), (float)System.Math.Cos(_theta), 0)
+                new Vector3(0, 1, 0)
             );
 
-            Matrix projection = Matrix.PerspectiveFovRH(
+            Matrix projection = Matrix.PerspectiveFovLH(
                 (float)System.Math.PI / 2,
                 form.ClientSize.Width / form.ClientSize.Height,
                 0.1f, 1000
@@ -102,7 +105,19 @@ namespace _3dgrowth
             _effect.GetVariableByName("ViewProjection").AsMatrix().SetMatrix(view * projection);
         }
 
-        private static System.Array TriangleVertice
+        private void Rotate(DirectionX dir)
+        {
+            if(dir == DirectionX.Left)
+            {
+                _theta -= System.Math.PI / 360d;
+            }
+            else if(dir == DirectionX.Right)
+            {
+                _theta += System.Math.PI / 360d;
+            }
+        }
+
+        private System.Array TriangleVertice
         {
             get
             {
@@ -110,18 +125,18 @@ namespace _3dgrowth
                 {
                     new VertexPositionColor
                     {
-                        Position = new Vector3(-1, 0, 0),
-                        Color = new Vector3(1, 0, 0)
+                        Position = new Vector3(0, 1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Color = new Vector3(0, 0, 1),
                     },
                     new VertexPositionColor
                     {
-                        Position = new Vector3(1, 0, 0),
+                        Position = new Vector3(1, 0, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
                         Color = new Vector3(0, 1, 0)
                     },
                     new VertexPositionColor
                     {
-                        Position = new Vector3(0, 1, 0),
-                        Color = new Vector3(0, 0, 1)
+                        Position = new Vector3(-1, 0, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Color = new Vector3(1, 0, 0)
                     },
                 };
             }
