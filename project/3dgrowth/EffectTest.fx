@@ -1,21 +1,26 @@
 ﻿matrix ViewProjection;
- 
-struct VertexPositionColor
+Texture2D diffuseTexture;
+
+SamplerState mySampler
+{
+};
+
+struct VertexPositionTexture
 {
     float4 Position : SV_Position;
-    float4 Color : COLOR;
+	float2 TextureCoordinate : TEXCOORD;
 };
  
-VertexPositionColor TestVertexShader(VertexPositionColor input)
+VertexPositionTexture TestVertexShader(VertexPositionTexture input)
 {
-    VertexPositionColor output = input;
+    VertexPositionTexture output = input;
     output.Position = mul(output.Position, ViewProjection);
     return output;
 }
 
-float4 TestPixelShader(VertexPositionColor input) : SV_Target
+float4 TestPixelShader(VertexPositionTexture input) : SV_Target
 {
-	return input.Color;
+	return diffuseTexture.Sample(mySampler, input.TextureCoordinate);
 }
 
 technique10 TestTechnique

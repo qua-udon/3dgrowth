@@ -61,35 +61,53 @@ namespace _3dgrowth.Properties {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap Cats {
+            get {
+                object obj = ResourceManager.GetObject("Cats", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   matrix ViewProjection;
-        /// 
-        ///struct VertexPositionColor
+        ///Texture2D diffuseTexture;
+        ///
+        ///SamplerState mySampler
+        ///{
+        ///};
+        ///
+        ///struct VertexPositionTexture
         ///{
         ///    float4 Position : SV_Position;
-        ///    float4 Color : COLOR;
+        ///	float2 TextureCoordinate : TEXCOORD;
         ///};
         /// 
-        ///VertexPositionColor TestVertexShader(VertexPositionColor input)
+        ///VertexPositionTexture TestVertexShader(VertexPositionTexture input)
         ///{
-        ///    VertexPositionColor output = input;
+        ///    VertexPositionTexture output = input;
         ///    output.Position = mul(output.Position, ViewProjection);
         ///    return output;
         ///}
         ///
-        ///float4 TestPixelShader(VertexPositionColor input) : SV_Target
+        ///float4 TestPixelShader(VertexPositionTexture input) : SV_Target
         ///{
-        ///	return input.Color;
-        ///}
-        ///
-        ///technique10 TestTechnique
-        ///{
-        ///	pass TestPass
-        ///	{
-        ///		SetVertexShader(CompileShader(vs_4_1, TestVe [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///	return diffuseTexture.Sample(mySampler, i [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EffectTest {
             get {
                 return ResourceManager.GetString("EffectTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap Penguins {
+            get {
+                object obj = ResourceManager.GetObject("Penguins", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

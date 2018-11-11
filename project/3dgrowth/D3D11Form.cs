@@ -17,7 +17,7 @@ namespace _3dgrowth
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private DrawTriangle _drawTriangle;
+        private DrawRectangle _rect;
 
         private System.Windows.Forms.Label label1;
 
@@ -33,7 +33,7 @@ namespace _3dgrowth
             _deviceSetting.InitializeDevice(this);
             _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain);
             InitializeViewport();
-            _drawTriangle = new DrawTriangle(_deviceSetting.Device);
+            _rect = new DrawRectangle(_deviceSetting.Device);
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
         }
@@ -41,19 +41,20 @@ namespace _3dgrowth
         private void MainLoop()
         {
             _renderTargetting.Clear();
-            _drawTriangle.InitializeContent();
-            _drawTriangle.SetView(this);
-            _drawTriangle.InitializeTriangleInputAssembler();
-            _drawTriangle.Draw();
+            _rect.InitializeContent();
+            _rect.SetView(this);
+            _rect.InitializeTriangleInputAssembler();
+            _rect.Draw();
             _renderTargetting.PresentView();
             SetFPSView();
+            _rect.Dispose();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             _deviceSetting.Dispose();
             _renderTargetting.Dispose();
-            _drawTriangle.Dispose();
+            _rect.Dispose();
             base.OnFormClosed(e);
         }
 

@@ -7,39 +7,26 @@ using System.Drawing.Imaging;
 namespace _3dgrowth
 {
     /// <summary>
-    /// ゲート0:三角形の描画
+    /// ゲート1:四角形の描画
     /// </summary>
-    public class DrawTriangle : System.IDisposable
+    public class DrawRectangle : System.IDisposable
     {
         private Device _device;
         private Buffer _indexBuffer;
         private Buffer _vertexBuffer;
         private InputLayout _inputLayout;
         private Effect _effect;
-        private double _theta;
-        private DirectInputDetector _detector;
-        private bool _isCat;
 
-        public DrawTriangle(Device device)
+        public DrawRectangle(Device device)
         {
             _device = device;
-            _theta = 0d;
-            _detector = new DirectInputDetector();
         }
 
         public void Draw()
         {
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            Image img = _isCat ? Properties.Resource1.Cats : Properties.Resource1.Penguins;
-            img.Save(ms, ImageFormat.Jpeg);
-
-            using (ShaderResourceView texture = ShaderResourceView.FromMemory(_device, ms.ToArray()))
-            {
-                _effect.GetVariableByName("diffuseTexture").AsResource().SetResource(texture);
-            }
+            SetTexture();
             _effect.GetTechniqueByIndex(0).GetPassByIndex(0).Apply(_device.ImmediateContext);
-
-            _device.ImmediateContext.DrawIndexed(6, 0, 0);
+            _device.ImmediateContext.DrawIndexed(3, 0, 0);
         }
 
         public void InitializeContent()
@@ -62,6 +49,7 @@ namespace _3dgrowth
         {
             _vertexBuffer?.Dispose();
             _inputLayout?.Dispose();
+            _indexBuffer?.Dispose();
             _effect?.Dispose();
         }
 
@@ -86,31 +74,37 @@ namespace _3dgrowth
 
         private Buffer CreateIndexBuffer(System.Array indexes)
         {
-            DataStream stream = new DataStream(indexes, true, true);
-            return new Buffer(_device, stream,
+            using (DataStream stream = new DataStream(indexes, true, true))
+            {
+                return new Buffer(_device, stream,
                 new BufferDescription
                 {
                     SizeInBytes = (int)stream.Length,
                     Usage = ResourceUsage.Default,
                     BindFlags = BindFlags.IndexBuffer,
                 });
+            }
         }
 
         private Buffer CreateVertexBuffer(System.Array vertice)
         {
-            DataStream stream = new DataStream(vertice, true, true);
-            return new Buffer(_device, stream,
+            using (DataStream stream = new DataStream(vertice, true, true))
+            {
+                return new Buffer(_device, stream,
                 new BufferDescription
                 {
                     SizeInBytes = (int)stream.Length,
                     BindFlags = BindFlags.VertexBuffer,
                 });
+            }
         }
 
         private Effect CreateEffect()
         {
-            ShaderBytecode shader = ShaderBytecode.Compile(Properties.Resource1.EffectTest, "fx_5_0", ShaderFlags.None, EffectFlags.None);
-            return new Effect(_device, shader);
+            using (ShaderBytecode shader = ShaderBytecode.Compile(Properties.Resource1.EffectTest, "fx_5_0", ShaderFlags.None, EffectFlags.None))
+            {
+                return new Effect(_device, shader);
+            }
         }
 
         public void SetView(System.Windows.Forms.Form form)
@@ -130,30 +124,34 @@ namespace _3dgrowth
             _effect.GetVariableByName("ViewProjection").AsMatrix().SetMatrix(view * projection);
         }
 
-        private void Rotate(DirectionX dir)
+        public void SetTexture()
         {
-            if (dir == DirectionX.Left)
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
             {
-                _theta -= System.Math.PI / 360d;
-            }
-            else if (dir == DirectionX.Right)
-            {
-                _theta += System.Math.PI / 360d;
+                Image img = Properties.Resource1.Penguins;
+                img.Save(ms, ImageFormat.Jpeg);
+
+                using (ShaderResourceView texture = ShaderResourceView.FromMemory(_device, ms.ToArray()))
+                {
+                    _effect.GetVariableByName("diffuseTexture").AsResource().SetResource(texture);
+                }
             }
         }
 
-        private System.Array IndexList
+        #region Define
+
+        private static System.Array IndexList
         {
             get
             {
                 return new[]
                 {
-                    3, 2, 1, 0, 1, 3
+                    3, 2, 1, 2, 1, 0
                 };
             }
         }
 
-        private System.Array TriangleVertice
+        private static System.Array TriangleVertice
         {
             get
             {
@@ -161,29 +159,29 @@ namespace _3dgrowth
                 {
                     new VertexPositionTexture
                     {
-                        Position = new Vector3(-1, -1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Position = new Vector3(-1, -1, 0),
                         TextureCoordinate = new Vector2(0, 1)
                     },
                     new VertexPositionTexture
                     {
-                        Position = new Vector3(-1, 1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Position = new Vector3(-1, 1, 0),
                         TextureCoordinate = new Vector2(0, 0)
                     },
                     new VertexPositionTexture
                     {
-                        Position = new Vector3(1, 1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Position = new Vector3(1, 1, 0),
                         TextureCoordinate = new Vector2(1, 0)
                     },
                     new VertexPositionTexture
                     {
-                        Position = new Vector3(1, -1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Position = new Vector3(1, -1, 0),
                         TextureCoordinate = new Vector2(1, 1)
                     },
                 };
             }
         }
 
-        struct VertexPositionTexture
+        private struct VertexPositionTexture
         {
             public Vector3 Position;
             public Vector2 TextureCoordinate;
@@ -212,5 +210,6 @@ namespace _3dgrowth
                 }
             }
         }
+        #endregion
     }
 }

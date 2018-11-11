@@ -100,6 +100,7 @@
     <Compile Include="Scripts\Gate0\FPSTimer.cs" />
     <Compile Include="Scripts\Gate0\RenderTargetting.cs" />
     <Compile Include="Scripts\Gate1\DirectInputDetector.cs" />
+    <Compile Include="Scripts\Gate1\DrawRectangle.cs" />
     <Compile Include="Scripts\Gate1\InputHandler.cs" />
     <Compile Include="Scripts\MathUtility.cs" />
     <EmbeddedResource Include="D3D11Form.resx">
@@ -124,6 +125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EffectTest.fx" />
+    <None Include="Resources\Penguins.jpg" />
+    <None Include="Resources\Cats.jpg" />
     <Content Include="Scripts\Gate0\TestEffect.fx" />
   </ItemGroup>
   <ItemGroup />

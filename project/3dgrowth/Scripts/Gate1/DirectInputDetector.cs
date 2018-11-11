@@ -22,6 +22,12 @@ namespace _3dgrowth
             onMouseInputHandleCallback?.Invoke(mouseState.X, mouseState.Y, mouseState.Z);
         }
 
+        public bool CheckKeyBoardInput(Key key)
+        {
+            var keyState = _device.GetCurrentKeyboardState();
+            return keyState[key];
+        }
+
         public void CheckKeyBoardInput()
         {
             var keyState = _device.GetCurrentKeyboardState();

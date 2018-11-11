@@ -27,6 +27,8 @@ namespace _3dgrowth
                        DeviceDefine.GetSwapChainDescriptionDefine(form),
                        out _device,
                        out _swapChain);
+
+            _device.ImmediateContext.Rasterizer.State = DeviceDefine.GetRasterizerState(_device);
         }
 
         /// <summary>
@@ -89,6 +91,16 @@ namespace _3dgrowth
                     RefreshRate = RefreshRateDefine,
                     Format = SlimDX.DXGI.Format.R8G8B8A8_UNorm
                 };
+            }
+
+            public static RasterizerState GetRasterizerState(Device device)
+            {
+                return RasterizerState.FromDescription(device,
+                    new RasterizerStateDescription
+                    {
+                        CullMode = CullMode.None,
+                        FillMode = FillMode.Solid
+                    });
             }
 
             /// <summary>
