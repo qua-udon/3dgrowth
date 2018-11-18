@@ -26,7 +26,7 @@ namespace _3dgrowth
         {
             SetTexture();
             _effect.GetTechniqueByIndex(0).GetPassByIndex(0).Apply(_device.ImmediateContext);
-            _device.ImmediateContext.DrawIndexed(3, 0, 0);
+            _device.ImmediateContext.DrawIndexed(6, 0, 0);
         }
 
         public void InitializeContent()
@@ -40,8 +40,8 @@ namespace _3dgrowth
         public void InitializeTriangleInputAssembler()
         {
             _device.ImmediateContext.InputAssembler.InputLayout = _inputLayout;
+            _device.ImmediateContext.InputAssembler.SetIndexBuffer(_indexBuffer, SlimDX.DXGI.Format.R32_UInt, 0);
             _device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, VertexPositionTexture.SizeInBytes, 0));
-            _device.ImmediateContext.InputAssembler.SetIndexBuffer(_indexBuffer, SlimDX.DXGI.Format.R16_UInt, 0);
             _device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
         }
 
@@ -76,13 +76,16 @@ namespace _3dgrowth
         {
             using (DataStream stream = new DataStream(indexes, true, true))
             {
-                return new Buffer(_device, stream,
-                new BufferDescription
-                {
-                    SizeInBytes = (int)stream.Length,
-                    Usage = ResourceUsage.Default,
-                    BindFlags = BindFlags.IndexBuffer,
-                });
+                return new Buffer(
+                    _device,
+                    stream,
+                    sizeof(uint) * 6,
+                    ResourceUsage.Default,
+                    BindFlags.IndexBuffer,
+                    0,
+                    0,
+                    0
+                );
             }
         }
 
@@ -144,9 +147,9 @@ namespace _3dgrowth
         {
             get
             {
-                return new[]
+                return new uint[]
                 {
-                    3, 2, 1, 2, 1, 0
+                    0, 1, 2, 1, 3, 0
                 };
             }
         }
@@ -159,23 +162,26 @@ namespace _3dgrowth
                 {
                     new VertexPositionTexture
                     {
-                        Position = new Vector3(-1, -1, 0),
-                        TextureCoordinate = new Vector2(0, 1)
-                    },
-                    new VertexPositionTexture
-                    {
                         Position = new Vector3(-1, 1, 0),
                         TextureCoordinate = new Vector2(0, 0)
                     },
-                    new VertexPositionTexture
-                    {
-                        Position = new Vector3(1, 1, 0),
-                        TextureCoordinate = new Vector2(1, 0)
-                    },
+
                     new VertexPositionTexture
                     {
                         Position = new Vector3(1, -1, 0),
                         TextureCoordinate = new Vector2(1, 1)
+                    },
+
+                    new VertexPositionTexture
+                    {
+                        Position = new Vector3(-1, -1, 0),
+                        TextureCoordinate = new Vector2(0, 1)
+                    },
+
+                    new VertexPositionTexture
+                    {
+                        Position = new Vector3(1, 1, 0),
+                        TextureCoordinate = new Vector2(1, 0)
                     },
                 };
             }

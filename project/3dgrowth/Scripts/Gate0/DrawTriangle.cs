@@ -39,7 +39,7 @@ namespace _3dgrowth
             }
             _effect.GetTechniqueByIndex(0).GetPassByIndex(0).Apply(_device.ImmediateContext);
 
-            _device.ImmediateContext.DrawIndexed(6, 0, 0);
+            _device.ImmediateContext.Draw(3, 0);
         }
 
         public void InitializeContent()
@@ -54,7 +54,7 @@ namespace _3dgrowth
         {
             _device.ImmediateContext.InputAssembler.InputLayout = _inputLayout;
             _device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, VertexPositionTexture.SizeInBytes, 0));
-            _device.ImmediateContext.InputAssembler.SetIndexBuffer(_indexBuffer, SlimDX.DXGI.Format.R16_UInt, 0);
+            //_device.ImmediateContext.InputAssembler.SetIndexBuffer(_indexBuffer, SlimDX.DXGI.Format.R32_UInt, 0);
             _device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
         }
 
@@ -146,7 +146,7 @@ namespace _3dgrowth
         {
             get
             {
-                return new[]
+                return new uint[]
                 {
                     3, 2, 1, 0, 1, 3
                 };
