@@ -32,5 +32,10 @@ namespace _3dgrowth
                     return vector;
             }
         }
+
+        public static double ToRadian(this double angle)
+        {
+            return angle / 180.0d * Math.PI;
+        }
     }
 }

@@ -6,8 +6,12 @@ namespace _3dgrowth
     public class DirectInputDetector
     {
         private Device _device;
+        private bool _isDownLeft;
+        private bool _isDownRight;
 
         public Action<int, int, int> onMouseInputHandleCallback;
+
+        public Action<bool> onMousePointerDownCallback;
         public Action<DirectionX, DirectionY> onKeyInputHandleCallback;
 
         public DirectInputDetector()
@@ -16,9 +20,17 @@ namespace _3dgrowth
             _device.Acquire();
         }
 
+        public DirectInputDetector(Guid guid)
+        {
+            _device = new Device(guid);
+            _device.Acquire();
+        }
+
         public void CheckMouseInput()
         {
             var mouseState = _device.CurrentMouseState;
+            var buttonState = mouseState.GetMouseButtons();
+            onMousePointerDownCallback?.Invoke(buttonState[0] != 0);
             onMouseInputHandleCallback?.Invoke(mouseState.X, mouseState.Y, mouseState.Z);
         }
 
@@ -26,6 +38,36 @@ namespace _3dgrowth
         {
             var keyState = _device.GetCurrentKeyboardState();
             return keyState[key];
+        }
+
+        public bool CheckKeyBoardDownInputLeft(Key key)
+        {
+            var keyState = _device.GetCurrentKeyboardState();
+            var down = keyState[key];
+            if (_isDownLeft != down)
+            {
+                _isDownLeft = down;
+                if (down)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool CheckKeyBoardDownInputRight(Key key)
+        {
+            var keyState = _device.GetCurrentKeyboardState();
+            var down = keyState[key];
+            if (_isDownRight != down)
+            {
+                _isDownRight = down;
+                if (down)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void CheckKeyBoardInput()

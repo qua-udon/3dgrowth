@@ -17,7 +17,7 @@ namespace _3dgrowth
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private DrawRectangle _rect;
+        private DrawCapsule _rect;
 
         private System.Windows.Forms.Label label1;
 
@@ -33,7 +33,7 @@ namespace _3dgrowth
             _deviceSetting.InitializeDevice(this);
             _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain);
             InitializeViewport();
-            _rect = new DrawRectangle(_deviceSetting.Device);
+            _rect = new DrawCapsule(_deviceSetting.Device, this);
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
         }
@@ -42,8 +42,7 @@ namespace _3dgrowth
         {
             _renderTargetting.Clear();
             _rect.InitializeContent();
-            _rect.SetView(this);
-            _rect.InitializeTriangleInputAssembler();
+            _rect.SetView();
             _rect.Draw();
             _renderTargetting.PresentView();
             SetFPSView();

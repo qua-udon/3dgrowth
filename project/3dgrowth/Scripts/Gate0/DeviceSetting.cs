@@ -98,7 +98,7 @@ namespace _3dgrowth
                 return RasterizerState.FromDescription(device,
                     new RasterizerStateDescription
                     {
-                        CullMode = CullMode.None,
+                        CullMode = CullMode.Back,
                         FillMode = FillMode.Solid
                     });
             }

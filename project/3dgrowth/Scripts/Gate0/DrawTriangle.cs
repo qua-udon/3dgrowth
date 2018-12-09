@@ -30,7 +30,8 @@ namespace _3dgrowth
         public void Draw()
         {
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            Image img = _isCat ? Properties.Resource1.Cats : Properties.Resource1.Penguins;
+     
+            Image img = Properties.Resource1.Penguins;
             img.Save(ms, ImageFormat.Jpeg);
 
             using (ShaderResourceView texture = ShaderResourceView.FromMemory(_device, ms.ToArray()))
@@ -38,6 +39,10 @@ namespace _3dgrowth
                 _effect.GetVariableByName("diffuseTexture").AsResource().SetResource(texture);
             }
             _effect.GetTechniqueByIndex(0).GetPassByIndex(0).Apply(_device.ImmediateContext);
+
+            _device.ImmediateContext.Draw(3, 0);
+
+            _effect.GetTechniqueByIndex(0).GetPassByIndex(1).Apply(_device.ImmediateContext);
 
             _device.ImmediateContext.Draw(3, 0);
         }
@@ -115,9 +120,17 @@ namespace _3dgrowth
 
         public void SetView(System.Windows.Forms.Form form)
         {
+            if (_detector.CheckKeyBoardDownInputLeft(Microsoft.DirectX.DirectInput.Key.LeftShift) ||
+                _detector.CheckKeyBoardDownInputRight(Microsoft.DirectX.DirectInput.Key.RightShift))
+            {
+                _isCat = !_isCat;
+            };
+
+            Matrix model = Matrix.Translation(new Vector3(0.75f, 0.5f, 0.5f));
+
             Matrix view = Matrix.LookAtLH(
                 new Vector3(0, 0, -3f),
-                new Vector3(),
+                _isCat ? new Vector3(0.75f, 0.5f, 0.5f) : new Vector3(),
                 new Vector3(0, 1, 0)
             );
 
@@ -127,6 +140,7 @@ namespace _3dgrowth
                 0.1f, 1000
             );
 
+            _effect.GetVariableByName("Model").AsMatrix().SetMatrix(model);
             _effect.GetVariableByName("ViewProjection").AsMatrix().SetMatrix(view * projection);
         }
 
@@ -161,23 +175,18 @@ namespace _3dgrowth
                 {
                     new VertexPositionTexture
                     {
-                        Position = new Vector3(-1, -1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Position = new Vector3(-1, 0, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
                         TextureCoordinate = new Vector2(0, 1)
                     },
                     new VertexPositionTexture
                     {
-                        Position = new Vector3(-1, 1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
-                        TextureCoordinate = new Vector2(0, 0)
-                    },
-                    new VertexPositionTexture
-                    {
-                        Position = new Vector3(1, 1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
-                        TextureCoordinate = new Vector2(1, 0)
-                    },
-                    new VertexPositionTexture
-                    {
-                        Position = new Vector3(1, -1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        Position = new Vector3(1, 0, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
                         TextureCoordinate = new Vector2(1, 1)
+                    },
+                    new VertexPositionTexture
+                    {
+                        Position = new Vector3(0, 1, 0).RotateByAxis(MathUtility.Axis.Z, _theta),
+                        TextureCoordinate = new Vector2(0.5f, 0)
                     },
                 };
             }

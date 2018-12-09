@@ -95,6 +95,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\Common\MouseDetector.cs" />
+    <Compile Include="Scripts\Common\MouseRotateMesh.cs" />
+    <Compile Include="Scripts\Common\MouseRotator.cs" />
+    <Compile Include="Scripts\Common\RendererBase.cs" />
     <Compile Include="Scripts\Gate0\DeviceSetting.cs" />
     <Compile Include="Scripts\Gate0\DrawTriangle.cs" />
     <Compile Include="Scripts\Gate0\FPSTimer.cs" />
@@ -102,6 +106,9 @@
     <Compile Include="Scripts\Gate1\DirectInputDetector.cs" />
     <Compile Include="Scripts\Gate1\DrawRectangle.cs" />
     <Compile Include="Scripts\Gate1\InputHandler.cs" />
+    <Compile Include="Scripts\Gate2\DrawCapsule.cs" />
+    <Compile Include="Scripts\Gate2\DrawCube.cs" />
+    <Compile Include="Scripts\Gate2\DrawSphere.cs" />
     <Compile Include="Scripts\MathUtility.cs" />
     <EmbeddedResource Include="D3D11Form.resx">
       <DependentUpon>D3D11Form.cs</DependentUpon>
