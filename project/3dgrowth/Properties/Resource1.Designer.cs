@@ -61,6 +61,77 @@ namespace _3dgrowth.Properties {
         }
         
         /// <summary>
+        ///   matrix ViewProjection;
+        ///matrix Model;
+        ///Texture2D diffuseTexture;
+        ///
+        ///SamplerState mySampler
+        ///{
+        ///};
+        ///
+        ///struct VertexOutput
+        ///{
+        ///    float4 Position : SV_Position;
+        ///	float4 Normal : NORMAL;
+        ///	float2 TextureCoordinate : TEXCOORD;
+        ///};
+        /// 
+        ///VertexOutput TestVertexShader(VertexOutput input)
+        ///{
+        ///    VertexOutput output = input;
+        ///    output.Position = mul(output.Position, ViewProjection);
+        ///    return output;
+        ///}
+        ///
+        ///float4 TestPixelShader(VertexOutput input) : SV_Target
+        ///{
+        ///	float4 tex = diffuseTexture.Sample(mySampler, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Ambient {
+            get {
+                return ResourceManager.GetString("Ambient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   matrix ViewProjection;
+        ///matrix Model;
+        ///Texture2D diffuseTexture;
+        ///
+        ///cbuffer Constant
+        ///{
+        ///	float EyePositionX;
+        ///    float EyePositionY;
+        ///    float EyePositionZ;
+        ///};
+        ///
+        ///SamplerState mySampler
+        ///{
+        ///};
+        ///
+        ///struct VertexOutput
+        ///{
+        ///    float4 Position : SV_Position;
+        ///	float4 Normal : NORMAL;
+        ///	float2 TextureCoordinate : TEXCOORD;
+        ///};
+        /// 
+        ///VertexOutput TestVertexShader(VertexOutput input)
+        ///{
+        ///    VertexOutput output = input;
+        ///    output.Position = mul(output.Position, ViewProjection);
+        ///    return output;
+        ///}
+        ///
+        ///float4 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BlinnPhong {
+            get {
+                return ResourceManager.GetString("BlinnPhong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap Cats {
@@ -72,6 +143,7 @@ namespace _3dgrowth.Properties {
         
         /// <summary>
         ///   matrix ViewProjection;
+        ///matrix Model;
         ///Texture2D diffuseTexture;
         ///
         ///SamplerState mySampler
@@ -91,13 +163,46 @@ namespace _3dgrowth.Properties {
         ///    return output;
         ///}
         ///
-        ///float4 TestPixelShader(VertexPositionTexture input) : SV_Target
+        ///VertexPositionTexture TestVertexShader2(VertexPositionTexture input)
         ///{
-        ///	return diffuseTexture.Sample(mySampler, i [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///	VertexPositionTexture [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EffectTest {
             get {
                 return ResourceManager.GetString("EffectTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   matrix ViewProjection;
+        ///matrix Model;
+        ///Texture2D diffuseTexture;
+        ///
+        ///SamplerState mySampler
+        ///{
+        ///};
+        ///
+        ///struct VertexOutput
+        ///{
+        ///    float4 Position : SV_Position;
+        ///	float4 Normal : NORMAL;
+        ///	float2 TextureCoordinate : TEXCOORD;
+        ///};
+        /// 
+        ///VertexOutput TestVertexShader(VertexOutput input)
+        ///{
+        ///    VertexOutput output = input;
+        ///    output.Position = mul(output.Position, ViewProjection);
+        ///    return output;
+        ///}
+        ///
+        ///float4 TestPixelShader(VertexOutput input) : SV_Target
+        ///{
+        ///	float4 tex = diffuseTexture.Sample(mySampler, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Lambert {
+            get {
+                return ResourceManager.GetString("Lambert", resourceCulture);
             }
         }
         
@@ -108,6 +213,39 @@ namespace _3dgrowth.Properties {
             get {
                 object obj = ResourceManager.GetObject("Penguins", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   matrix ViewProjection;
+        ///matrix Model;
+        ///Texture2D diffuseTexture;
+        ///
+        ///SamplerState mySampler
+        ///{
+        ///};
+        ///
+        ///struct VertexOutput
+        ///{
+        ///    float4 Position : SV_Position;
+        ///	float4 Normal : NORMAL;
+        ///	float2 TextureCoordinate : TEXCOORD;
+        ///};
+        /// 
+        ///VertexOutput TestVertexShader(VertexOutput input)
+        ///{
+        ///    VertexOutput output = input;
+        ///    output.Position = mul(output.Position, ViewProjection);
+        ///    return output;
+        ///}
+        ///
+        ///float4 TestPixelShader(VertexOutput input) : SV_Target
+        ///{
+        ///    float4 wireColor = float4(0.7, 1, 0.08, 1) [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string WireFrame {
+            get {
+                return ResourceManager.GetString("WireFrame", resourceCulture);
             }
         }
     }

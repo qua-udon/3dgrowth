@@ -43,7 +43,7 @@ namespace _3dgrowth
         /// <summary>
         /// 初期化に必要な構造体の設定をまとめたもの
         /// </summary>
-        private static class DeviceDefine
+        public static class DeviceDefine
         {
             /// <summary>
             /// スワップチェーン情報
@@ -93,13 +93,13 @@ namespace _3dgrowth
                 };
             }
 
-            public static RasterizerState GetRasterizerState(Device device)
+            public static RasterizerState GetRasterizerState(Device device, CullMode cull = CullMode.Back, FillMode fill = FillMode.Solid)
             {
                 return RasterizerState.FromDescription(device,
                     new RasterizerStateDescription
                     {
-                        CullMode = CullMode.Back,
-                        FillMode = FillMode.Solid
+                        CullMode = cull,
+                        FillMode = fill
                     });
             }
 

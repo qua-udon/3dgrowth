@@ -118,11 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Ambient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Ambient.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="BlinnPhong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\BlinnPhong.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="Cats" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cats.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EffectTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\EffectTest.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Lambert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Lambert.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Penguins" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -1260,5 +1269,8 @@
         0m2U4y0ETl0Kiv8AEmI2JM0NVl/fqQ6qiC0nIttm4LaglsSFElaVCSDG0DSq5yifRkizS8i1aQhQfXmD
         7vewkFPtUuVOmXtxfgcsVvWudxpTJlveJGaDMA0A8J0f/9k=
 </value>
+  </data>
+  <data name="WireFrame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\WireFrame.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

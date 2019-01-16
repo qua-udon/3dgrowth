@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.DirectX.DirectInput;
 
 namespace _3dgrowth
@@ -6,6 +7,9 @@ namespace _3dgrowth
     public class DirectInputDetector
     {
         private Device _device;
+
+        private Dictionary<Key, bool> _registerKeyMap;
+        private bool _isDown;
         private bool _isDownLeft;
         private bool _isDownRight;
 
@@ -18,12 +22,19 @@ namespace _3dgrowth
         {
             _device = new Device(SystemGuid.Keyboard);
             _device.Acquire();
+            _registerKeyMap = new Dictionary<Key, bool>();
         }
 
         public DirectInputDetector(Guid guid)
         {
             _device = new Device(guid);
             _device.Acquire();
+            _registerKeyMap = new Dictionary<Key, bool>();
+        }
+
+        public void SetDownKey(Key key)
+        {
+            _registerKeyMap.Add(key, false);
         }
 
         public void CheckMouseInput()
@@ -38,6 +49,25 @@ namespace _3dgrowth
         {
             var keyState = _device.GetCurrentKeyboardState();
             return keyState[key];
+        }
+
+        public bool CheckKeyBoardDownInputRegister(Key key)
+        {
+            bool isDown;
+            if(_registerKeyMap.TryGetValue(key, out isDown))
+            {
+                var keyState = _device.GetCurrentKeyboardState();
+                var down = keyState[key];
+                if (isDown != down)
+                {
+                    _registerKeyMap[key] = down;
+                    if (down)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public bool CheckKeyBoardDownInputLeft(Key key)

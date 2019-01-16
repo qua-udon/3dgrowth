@@ -32,27 +32,27 @@ namespace _3dgrowth
             3, 0, 4, 3, 4, 7,
         };
 
-        protected override System.Array VerticeList => new VertexPositionTexture[]
+        protected override System.Array VerticeList => new VertexOutput[]
         {
-            new VertexPositionTexture
+            new VertexOutput
                     {
                         Position = new Vector3(-1, 1, 0),
                         TextureCoordinate = new Vector2(0, 0)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, -1, 0),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(-1, -1, 0),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, 1, 0),
                         TextureCoordinate = new Vector2(1, 0)
@@ -60,25 +60,25 @@ namespace _3dgrowth
 
                     //
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(-1, 1, 2),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, -1, 2),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(-1, -1, 2),
                         TextureCoordinate = new Vector2(0, 0)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, 1, 2),
                         TextureCoordinate = new Vector2(1, 1)
@@ -86,25 +86,25 @@ namespace _3dgrowth
 
                     //
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(-1, 1, 2),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, -1, 2),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(-1, -1, 2),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, 1, 2),
                         TextureCoordinate = new Vector2(0, 0)

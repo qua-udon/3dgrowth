@@ -25,7 +25,7 @@ namespace _3dgrowth
             uint[] indexes = new uint[IndexSize];
             int indexCount = 0;
 
-            for (int y = 0; y < 5; y++)
+            for (int y = 5; y < 16; y++)
             {
                 for (int x = 0; x < _separateX; x++)
                 {
@@ -55,7 +55,7 @@ namespace _3dgrowth
                 }
             }
 
-            for (int y = 5; y < 15; y++)
+            for (int y = 0; y < 5; y++)
             {
                 for (int x = 0; x < _separateX; x++)
                 {
@@ -70,25 +70,13 @@ namespace _3dgrowth
                 }
             }
 
-            for (int x = 0; x < _separateX; x++)
-            {
-                int next = x == _separateX - 1 ? 0 : x + 1;
-                indexes[indexCount++] = (uint)(15 * _separateX + x);
-                indexes[indexCount++] = (uint)(15 * _separateX + x + 1);
-                indexes[indexCount++] = (uint)(16 * _separateX + x + 1);
-
-                indexes[indexCount++] = (uint)(15 * _separateX + x);
-                indexes[indexCount++] = (uint)(16 * _separateX + x + 1);
-                indexes[indexCount++] = (uint)(16 * _separateX + x);
-            }
-
             return indexes;
         }
 
         private System.Array GetCapsuleVertices()
         {
             int vertexCount = _separateX * (_separateY + 1);
-            VertexPositionTexture[] vertices = new VertexPositionTexture[vertexCount];
+            VertexOutput[] vertices = new VertexOutput[vertexCount];
 
             for (int y = 0; y <= _separateY; y++)
             {
@@ -106,15 +94,20 @@ namespace _3dgrowth
                         xPos = _radius * Math.Sin(theta) * Math.Cos(phi);
                         yPos = _radius * cylHeight + cylOffset;
                         zPos = _radius * Math.Sin(theta) * Math.Sin(phi);
-                        Console.WriteLine(_radius * Math.Cos(theta));
                         u = (x * 2) % _separateX == 0 ? 1d : (double)((x * 2) % _separateX) / _separateX;
                         v = (double)(y % _separateY) / _separateY;
 
-                        VertexPositionTexture vertSphere = new VertexPositionTexture
+                        if (y > 15)
+                        {
+                            xPos *= -1d;
+                            zPos *= -1d;
+                        }
+                        VertexOutput vertSphere = new VertexOutput
                         {
                             Position = new SlimDX.Vector3((float)xPos, (float)yPos, (float)zPos),
                             TextureCoordinate = new SlimDX.Vector2((float)u, (float)v)
                         };
+           
                         vertices[_separateX * y + x] = vertSphere;
                     }
                     else
@@ -126,11 +119,21 @@ namespace _3dgrowth
                         u = (x * 2) % _separateX == 0 ? 1d : (double)((x * 2) % _separateX) / _separateX;
                         v = (double)(y % _separateY) / _separateY;
 
-                        VertexPositionTexture vertCylinder = new VertexPositionTexture
+                        VertexOutput vertCylinder = new VertexOutput
                         {
                             Position = new SlimDX.Vector3((float)xPos, (float)yPos, (float)zPos),
                             TextureCoordinate = new SlimDX.Vector2((float)u, (float)v)
                         };
+
+                        if (y == 14)
+                        {
+                            Console.WriteLine("14: " + xPos + "," + yPos + "," + zPos);
+                        }
+
+                        if (y == 15)
+                        {
+                            Console.WriteLine("15: " + xPos + "," + yPos + "," + zPos);
+                        }
                         vertices[_separateX * y + x] = vertCylinder;
                     }
                 }

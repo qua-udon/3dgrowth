@@ -32,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -108,7 +109,10 @@
     <Compile Include="Scripts\Gate1\InputHandler.cs" />
     <Compile Include="Scripts\Gate2\DrawCapsule.cs" />
     <Compile Include="Scripts\Gate2\DrawCube.cs" />
+    <Compile Include="Scripts\Gate2\DrawWireSphere.cs" />
     <Compile Include="Scripts\Gate2\DrawSphere.cs" />
+    <Compile Include="Scripts\Gate3\TwoObjectCollision.cs" />
+    <Compile Include="Scripts\Gate3\KeyMover.cs" />
     <Compile Include="Scripts\MathUtility.cs" />
     <EmbeddedResource Include="D3D11Form.resx">
       <DependentUpon>D3D11Form.cs</DependentUpon>
@@ -131,6 +135,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlinnPhong.fx" />
+    <Content Include="Ambient.fx" />
+    <Content Include="WireFrame.fx" />
+    <Content Include="Lambert.fx" />
     <Content Include="EffectTest.fx" />
     <None Include="Resources\Penguins.jpg" />
     <None Include="Resources\Cats.jpg" />

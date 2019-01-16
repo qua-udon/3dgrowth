@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.DirectX.DirectInput;
 using SlimDX;
 using SlimDX.Direct3D11;
 
@@ -13,11 +14,13 @@ namespace _3dgrowth
     {
         private int _fps;
         private int _oldTime;
+        private bool _isWire;
         private FPSTimer _timer;
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private DrawCapsule _rect;
+        private DrawSphere _rect;
+        private DrawWireSphere _wire;
 
         private System.Windows.Forms.Label label1;
 
@@ -31,9 +34,10 @@ namespace _3dgrowth
         {
             Show();
             _deviceSetting.InitializeDevice(this);
-            _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain);
+            _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain, Width, Height);
             InitializeViewport();
-            _rect = new DrawCapsule(_deviceSetting.Device, this);
+            _rect = new DrawSphere(_deviceSetting.Device, this);
+            _wire = new DrawWireSphere(_deviceSetting.Device, this);
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
         }
@@ -47,6 +51,7 @@ namespace _3dgrowth
             _renderTargetting.PresentView();
             SetFPSView();
             _rect.Dispose();
+            _wire.Dispose();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -54,6 +59,7 @@ namespace _3dgrowth
             _deviceSetting.Dispose();
             _renderTargetting.Dispose();
             _rect.Dispose();
+            _wire.Dispose();
             base.OnFormClosed(e);
         }
 
@@ -75,6 +81,7 @@ namespace _3dgrowth
                 {
                     Width = ClientSize.Width,
                     Height = ClientSize.Height,
+                    MaxZ = 1
                 }
                 );
         }

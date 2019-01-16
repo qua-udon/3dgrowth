@@ -21,13 +21,17 @@ namespace _3dgrowth
         protected virtual int IndexSize => 6;
 
         protected virtual Vector3 EyePosition => new Vector3(0, 0, -3f);
+        protected virtual Vector3 ModelPosition => new Vector3();
         protected virtual Vector3 CameraDirection => new Vector3();
         protected virtual Vector3 CameraAxis => new Vector3(0, 1, 0);
 
+        protected virtual bool UseModel => false;
         protected virtual float Fov => (float)System.Math.PI / 2;
         protected virtual float Aspect => _form.ClientSize.Width / _form.ClientSize.Height;
         protected virtual float Znear => 0.1f;
         protected virtual float Zfar => 1000;
+
+        protected virtual string ShaderSource => Properties.Resource1.Ambient;
 
         public RendererBase(Device device, System.Windows.Forms.Form form)
         {
@@ -58,13 +62,15 @@ namespace _3dgrowth
 
         protected virtual void InitializeTriangleInputAssembler()
         {
+            _device.ImmediateContext.Rasterizer.State =
+                DeviceSetting.DeviceDefine.GetRasterizerState(_device);
             _device.ImmediateContext.InputAssembler.InputLayout = _inputLayout;
             _device.ImmediateContext.InputAssembler.SetIndexBuffer(_indexBuffer, SlimDX.DXGI.Format.R32_UInt, 0);
-            _device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, VertexPositionTexture.SizeInBytes, 0));
+            _device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, VertexOutput.SizeInBytes, 0));
             _device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _vertexBuffer?.Dispose();
             _inputLayout?.Dispose();
@@ -81,6 +87,12 @@ namespace _3dgrowth
                     {
                         SemanticName = "SV_Position",
                         Format = SlimDX.DXGI.Format.R32G32B32_Float
+                    },
+                    new InputElement
+                    {
+                        SemanticName = "NORMAL",
+                        Format = SlimDX.DXGI.Format.R32G32B32_Float,
+                        AlignedByteOffset = InputElement.AppendAligned//自動的にオフセット決定
                     },
                     new InputElement
                     {
@@ -121,9 +133,9 @@ namespace _3dgrowth
             }
         }
 
-        protected Effect CreateEffect()
+        protected virtual Effect CreateEffect()
         {
-            using (ShaderBytecode shader = ShaderBytecode.Compile(Properties.Resource1.EffectTest, "fx_5_0", ShaderFlags.None, EffectFlags.None))
+            using (ShaderBytecode shader = ShaderBytecode.Compile(ShaderSource, "fx_5_0", ShaderFlags.None, EffectFlags.None))
             {
                 return new Effect(_device, shader);
             }
@@ -144,6 +156,10 @@ namespace _3dgrowth
                 Zfar
             );
 
+            if (UseModel)
+            {
+
+            }
             _effect.GetVariableByName("ViewProjection").AsMatrix().SetMatrix(view * projection);
         }
 
@@ -180,25 +196,25 @@ namespace _3dgrowth
             {
                 return new[]
                 {
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(-1, 1, 0),
                         TextureCoordinate = new Vector2(0, 0)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, -1, 0),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(-1, -1, 0),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
-                    new VertexPositionTexture
+                    new VertexOutput
                     {
                         Position = new Vector3(1, 1, 0),
                         TextureCoordinate = new Vector2(1, 0)
@@ -207,9 +223,10 @@ namespace _3dgrowth
             }
         }
 
-        protected struct VertexPositionTexture
+        protected struct VertexOutput
         {
             public Vector3 Position;
+            public Vector3 Normal;
             public Vector2 TextureCoordinate;
 
             public static readonly InputElement[] VertexElements = new[]
@@ -218,6 +235,12 @@ namespace _3dgrowth
                 {
                      SemanticName = "SV_Position",
                      Format = SlimDX.DXGI.Format.R32G32B32_Float
+                },
+                new InputElement
+                {
+                     SemanticName = "NORMAL0",
+                     Format = SlimDX.DXGI.Format.R32G32B32A32_Float,
+                     AlignedByteOffset = InputElement.AppendAligned//自動的にオフセット決定
                 },
                 new InputElement
                 {
@@ -232,7 +255,7 @@ namespace _3dgrowth
                 get
                 {
                     return System.Runtime.InteropServices.
-                        Marshal.SizeOf(typeof(VertexPositionTexture));
+                        Marshal.SizeOf(typeof(VertexOutput));
                 }
             }
         }
