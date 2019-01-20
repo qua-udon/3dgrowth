@@ -17,11 +17,15 @@ namespace _3dgrowth
         protected Buffer _vertexBuffer;
         protected InputLayout _inputLayout;
         protected Effect _effect;
+        protected Vector3 _position = Vector3.Zero;
+        protected Vector3 _cameraPosition = new Vector3(0, 0, -3f);
+        protected float _scale = 1;
 
         protected virtual int IndexSize => 6;
 
-        protected virtual Vector3 EyePosition => new Vector3(0, 0, -3f);
-        protected virtual Vector3 ModelPosition => new Vector3();
+        public virtual Vector3 EyePosition => _cameraPosition;
+        public virtual Vector3 ModelPosition => UseModel ? _position : Vector3.Zero;
+
         protected virtual Vector3 CameraDirection => new Vector3();
         protected virtual Vector3 CameraAxis => new Vector3(0, 1, 0);
 
@@ -76,6 +80,26 @@ namespace _3dgrowth
             _inputLayout?.Dispose();
             _indexBuffer?.Dispose();
             _effect?.Dispose();
+        }
+
+        public virtual void Move(Vector3 position)
+        {
+            _position += position;
+        }
+
+        public virtual void SetPosition(Vector3 position)
+        {
+            _position = position;
+        }
+
+        public virtual void SetCamera(Vector3 position)
+        {
+            _cameraPosition = position;
+        }
+
+        public virtual void SetScale(float scale)
+        {
+            _scale = scale;
         }
 
         protected virtual InputLayout CreateInputLayout()
@@ -143,6 +167,8 @@ namespace _3dgrowth
 
         public virtual void SetView()
         {
+            Matrix model = Matrix.Translation(ModelPosition);
+
             Matrix view = Matrix.LookAtLH(
                 EyePosition,
                 CameraDirection,
@@ -156,10 +182,7 @@ namespace _3dgrowth
                 Zfar
             );
 
-            if (UseModel)
-            {
-
-            }
+            _effect.GetVariableByName("Model").AsMatrix().SetMatrix(model);
             _effect.GetVariableByName("ViewProjection").AsMatrix().SetMatrix(view * projection);
         }
 

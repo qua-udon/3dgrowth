@@ -7,7 +7,7 @@ namespace _3dgrowth
     {
         private MouseRotator _rotator;
 
-        protected override Vector3 EyePosition => base.EyePosition.RotateByAxis(MathUtility.Axis.Y, -_rotator.AngleX).RotateByAxis(MathUtility.Axis.X, -_rotator.AngleY);
+        public override Vector3 EyePosition => base.EyePosition.RotateByAxis(MathUtility.Axis.Y, -_rotator.AngleX).RotateByAxis(MathUtility.Axis.X, -_rotator.AngleY);
 
         public MouseRotateMesh(Device device, System.Windows.Forms.Form form) : base(device, form)
         {

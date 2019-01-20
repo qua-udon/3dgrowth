@@ -182,37 +182,29 @@ namespace _3dgrowth.Properties {
         ///{
         ///};
         ///
-        ///struct VertexOutput
+        ///cbuffer Constant
+        ///{
+        ///    bool IsHit;
+        ///};
+        ///
+        ///struct VertexPositionTexture
         ///{
         ///    float4 Position : SV_Position;
-        ///	float4 Normal : NORMAL;
         ///	float2 TextureCoordinate : TEXCOORD;
         ///};
         /// 
-        ///VertexOutput TestVertexShader(VertexOutput input)
+        ///VertexPositionTexture TestVertexShader(VertexPositionTexture input)
         ///{
-        ///    VertexOutput output = input;
+        ///    VertexPositionTexture output = input;
+        ///    output.Position = mul(output.Position, Model);
         ///    output.Position = mul(output.Position, ViewProjection);
         ///    return output;
         ///}
-        ///
-        ///float4 TestPixelShader(VertexOutput input) : SV_Target
-        ///{
-        ///	float4 tex = diffuseTexture.Sample(mySampler, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///        /// [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Lambert {
+        internal static string gate3 {
             get {
-                return ResourceManager.GetString("Lambert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
-        /// </summary>
-        internal static System.Drawing.Bitmap Penguins {
-            get {
-                object obj = ResourceManager.GetObject("Penguins", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("gate3", resourceCulture);
             }
         }
         
@@ -235,13 +227,60 @@ namespace _3dgrowth.Properties {
         ///VertexOutput TestVertexShader(VertexOutput input)
         ///{
         ///    VertexOutput output = input;
+        ///    output.Position = mul(output.Position, Model);
         ///    output.Position = mul(output.Position, ViewProjection);
         ///    return output;
         ///}
         ///
-        ///float4 TestPixelShader(VertexOutput input) : SV_Target
+        ///float4 TestPixelShader(VertexOutput input) : SV_Targe [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Lambert {
+            get {
+                return ResourceManager.GetString("Lambert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap Penguins {
+            get {
+                object obj = ResourceManager.GetObject("Penguins", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   matrix ViewProjection;
+        ///matrix Model;
+        ///Texture2D diffuseTexture;
+        ///
+        ///cbuffer Constant
         ///{
-        ///    float4 wireColor = float4(0.7, 1, 0.08, 1) [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///    float EyePositionX;
+        ///    float EyePositionY;
+        ///    float EyePositionZ;
+        ///};
+        ///
+        ///SamplerState mySampler
+        ///{
+        ///};
+        ///
+        ///struct VertexOutput
+        ///{
+        ///    float4 Position : SV_Position;
+        ///	float4 Normal : NORMAL;
+        ///	float2 TextureCoordinate : TEXCOORD;
+        ///};
+        /// 
+        ///VertexOutput TestVertexShader(VertexOutput input)
+        ///{
+        ///    VertexOutput output = input;
+        ///    output.Position = mul(output.Position, ViewProjection);
+        ///    return output;
+        ///}
+        ///
+        ///flo [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string WireFrame {
             get {

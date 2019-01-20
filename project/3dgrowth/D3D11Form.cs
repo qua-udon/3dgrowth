@@ -19,8 +19,9 @@ namespace _3dgrowth
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private DrawSphere _rect;
-        private DrawWireSphere _wire;
+        private HitCube _base;
+        private HitCube _move;
+        private TwoObjectCollision _objectController;
 
         private System.Windows.Forms.Label label1;
 
@@ -36,8 +37,10 @@ namespace _3dgrowth
             _deviceSetting.InitializeDevice(this);
             _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain, Width, Height);
             InitializeViewport();
-            _rect = new DrawSphere(_deviceSetting.Device, this);
-            _wire = new DrawWireSphere(_deviceSetting.Device, this);
+            _base = new HitCube(_deviceSetting.Device, this);
+            _move = new HitCube(_deviceSetting.Device, this);
+            _objectController = new BoxAABB();
+            _objectController.SetObject(_base, _move);
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
         }
@@ -45,21 +48,17 @@ namespace _3dgrowth
         private void MainLoop()
         {
             _renderTargetting.Clear();
-            _rect.InitializeContent();
-            _rect.SetView();
-            _rect.Draw();
+            _objectController.OnUpdate();
             _renderTargetting.PresentView();
             SetFPSView();
-            _rect.Dispose();
-            _wire.Dispose();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             _deviceSetting.Dispose();
             _renderTargetting.Dispose();
-            _rect.Dispose();
-            _wire.Dispose();
+            _base.Dispose();
+            _move.Dispose();
             base.OnFormClosed(e);
         }
 

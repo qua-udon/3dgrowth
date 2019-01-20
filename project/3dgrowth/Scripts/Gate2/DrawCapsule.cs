@@ -107,7 +107,7 @@ namespace _3dgrowth
                             Position = new SlimDX.Vector3((float)xPos, (float)yPos, (float)zPos),
                             TextureCoordinate = new SlimDX.Vector2((float)u, (float)v)
                         };
-           
+
                         vertices[_separateX * y + x] = vertSphere;
                     }
                     else

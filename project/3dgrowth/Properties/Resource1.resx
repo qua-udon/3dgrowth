@@ -130,6 +130,9 @@
   <data name="EffectTest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\EffectTest.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="gate3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\gate3.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="Lambert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Lambert.fx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

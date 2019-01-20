@@ -1,25 +1,42 @@
-﻿using SlimDX;
+﻿using System;
+using System.Windows.Forms;
+using SlimDX;
 using SlimDX.Direct3D11;
 
 namespace _3dgrowth
 {
-    public class DrawCube : RendererBase
+    public class HitCube : Gate3Object
     {
-        private MouseRotator _rotator;
-
-        protected override int IndexSize => 36;
-        public override Vector3 EyePosition => base.EyePosition.RotateByAxis(MathUtility.Axis.Y, -_rotator.AngleX).RotateByAxis(MathUtility.Axis.X, -_rotator.AngleY);
-
-        public DrawCube(Device device, System.Windows.Forms.Form form) : base(device, form)
+        public enum BoxAxis
         {
-            _rotator = new MouseRotator();
-            _rotator.SetEvent();
+            X,
+            Y,
+            Z
         }
 
-        public override void SetView()
+        public HitCube(Device device, Form form) : base(device, form)
         {
-            _rotator.OnUpdate();
-            base.SetView();
+
+        }
+
+        public Vector3 GetDirection(BoxAxis axis)
+        {
+            switch (axis)
+            {
+                case BoxAxis.X:
+                    return Vector3.UnitX;
+                case BoxAxis.Y:
+                    return Vector3.UnitY;
+                case BoxAxis.Z:
+                    return Vector3.UnitZ;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
+            }
+        }
+
+        public float GetLength()
+        {
+            return _scale / 2;
         }
 
         protected override System.Array IndexList => new uint[]
@@ -36,25 +53,25 @@ namespace _3dgrowth
         {
             new VertexOutput
                     {
-                        Position = new Vector3(-1, 1, 0),
+                        Position = new Vector3(-_scale / 2, _scale / 2, -_scale / 2),
                         TextureCoordinate = new Vector2(0, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, -1, 0),
+                        Position = new Vector3(_scale / 2, -_scale / 2, -_scale / 2),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, -1, 0),
+                        Position = new Vector3(-_scale / 2, -_scale / 2, -_scale / 2),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, 1, 0),
+                        Position = new Vector3(_scale / 2, _scale / 2, -_scale / 2),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
@@ -62,25 +79,25 @@ namespace _3dgrowth
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, 1, 2),
+                        Position = new Vector3(-_scale / 2, _scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, -1, 2),
+                        Position = new Vector3(_scale / 2, -_scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, -1, 2),
+                        Position = new Vector3(-_scale / 2, -_scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(0, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, 1, 2),
+                        Position = new Vector3(_scale / 2, _scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
@@ -88,25 +105,25 @@ namespace _3dgrowth
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, 1, 2),
+                        Position = new Vector3(-_scale / 2, _scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, -1, 2),
+                        Position = new Vector3(_scale / 2, -_scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, -1, 2),
+                        Position = new Vector3(-_scale / 2, -_scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, 1, 2),
+                        Position = new Vector3(_scale / 2, _scale / 2, _scale / 2),
                         TextureCoordinate = new Vector2(0, 0)
                     },
         };

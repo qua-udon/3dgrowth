@@ -16,6 +16,7 @@ struct VertexOutput
 VertexOutput TestVertexShader(VertexOutput input)
 {
     VertexOutput output = input;
+    output.Position = mul(output.Position, Model);
     output.Position = mul(output.Position, ViewProjection);
     return output;
 }

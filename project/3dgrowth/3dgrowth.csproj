@@ -111,6 +111,9 @@
     <Compile Include="Scripts\Gate2\DrawCube.cs" />
     <Compile Include="Scripts\Gate2\DrawWireSphere.cs" />
     <Compile Include="Scripts\Gate2\DrawSphere.cs" />
+    <Compile Include="Scripts\Gate3\BoxAABB.cs" />
+    <Compile Include="Scripts\Gate3\Gate3Object.cs" />
+    <Compile Include="Scripts\Gate3\HitCube.cs" />
     <Compile Include="Scripts\Gate3\TwoObjectCollision.cs" />
     <Compile Include="Scripts\Gate3\KeyMover.cs" />
     <Compile Include="Scripts\MathUtility.cs" />
@@ -137,6 +140,7 @@
   <ItemGroup>
     <Content Include="BlinnPhong.fx" />
     <Content Include="Ambient.fx" />
+    <Content Include="gate3.fx" />
     <Content Include="WireFrame.fx" />
     <Content Include="Lambert.fx" />
     <Content Include="EffectTest.fx" />
