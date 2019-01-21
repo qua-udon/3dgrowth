@@ -21,29 +21,31 @@ namespace _3dgrowth
         protected Vector3 _cameraPosition = Vector3.UnitZ * -8;
         private Vector3 _cachedPosition;
 
+        private float _moveScale = 0.1f;
+
         public TwoObjectCollision()
         {
             _rotator = new MouseRotator();
             _rotator.SetEvent();
 
             _objectMover = new KeyMover();
-            _objectMover.OnLeftArrowAction = () => _moveObject.Move(Vector3.UnitX * -1);
-            _objectMover.OnRightArrowAction = () => _moveObject.Move(Vector3.UnitX);
-            _objectMover.OnDownArrowAction = () => _moveObject.Move(Vector3.UnitZ * -1);
-            _objectMover.OnUpArrowAction = () => _moveObject.Move(Vector3.UnitZ);
-            _objectMover.OnEKeyAction = () => _moveObject.Move(Vector3.UnitY);
-            _objectMover.OnQKeyAction = () => _moveObject.Move(Vector3.UnitY * -1);
+            _objectMover.OnLeftArrowAction = () => _moveObject.Move(Vector3.UnitX * -1 * _moveScale);
+            _objectMover.OnRightArrowAction = () => _moveObject.Move(Vector3.UnitX * _moveScale);
+            _objectMover.OnDownArrowAction = () => _moveObject.Move(Vector3.UnitZ * -1 * _moveScale);
+            _objectMover.OnUpArrowAction = () => _moveObject.Move(Vector3.UnitZ * _moveScale);
+            _objectMover.OnEKeyAction = () => _moveObject.Move(Vector3.UnitY * _moveScale);
+            _objectMover.OnQKeyAction = () => _moveObject.Move(Vector3.UnitY * -1 * _moveScale);
             _objectMover.OnWKeyAction = () =>
             {
                 Vector3 delta = (_cachedPosition * -1);
                 delta.Normalize();
-                _cachedPosition += delta;
+                _cachedPosition += delta * _moveScale;
             };
             _objectMover.OnSKeyAction = () =>
             {
                 Vector3 delta = _cachedPosition;
                 delta.Normalize();
-                _cachedPosition += delta;
+                _cachedPosition += delta * _moveScale;
             };
             _cachedPosition = _cameraPosition;
         }

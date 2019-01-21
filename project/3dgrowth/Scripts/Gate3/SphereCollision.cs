@@ -18,20 +18,20 @@ namespace _3dgrowth
             bool isHit = false;
             float L, rA, rB;
             Vector3 interval = _baseObject.ModelPosition - _moveObject.ModelPosition;
-            HitCube baseCube = _baseObject as HitCube;
-            HitCube moveCube = _moveObject as HitCube;
+            HitSphere baseSphere = _baseObject as HitSphere;
+            HitSphere moveSphere = _moveObject as HitSphere;
 
             if(Vector3.Distance(_baseObject.ModelPosition, _moveObject.ModelPosition) > 1f)
             {
-                baseCube.SetHit(false);
-                moveCube.SetHit(false);
+                baseSphere.SetHit(false);
+                moveSphere.SetHit(false);
                 return;
             }
 
             // hit
 
-            baseCube.SetHit(true);
-            moveCube.SetHit(true);
+            baseSphere.SetHit(true);
+            moveSphere.SetHit(true);
         }
 
         private float LenSegOnSeparateAxis(Vector3 sep, Vector3 e1, Vector3 e2)

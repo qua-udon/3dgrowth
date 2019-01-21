@@ -54,6 +54,22 @@ namespace _3dgrowth
         public bool CheckKeyBoardDownInputRegister(Key key)
         {
             bool isDown;
+            if (_registerKeyMap.TryGetValue(key, out isDown))
+            {
+                var keyState = _device.GetCurrentKeyboardState();
+                var down = keyState[key];
+                if (down)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /*
+        public bool CheckKeyBoardDownInputRegister(Key key)
+        {
+            bool isDown;
             if(_registerKeyMap.TryGetValue(key, out isDown))
             {
                 var keyState = _device.GetCurrentKeyboardState();
@@ -69,6 +85,7 @@ namespace _3dgrowth
             }
             return false;
         }
+        */
 
         public bool CheckKeyBoardDownInputLeft(Key key)
         {
