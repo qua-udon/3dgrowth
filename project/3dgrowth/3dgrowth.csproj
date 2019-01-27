@@ -114,6 +114,10 @@
     <Compile Include="Scripts\Gate3\BoxAABB.cs" />
     <Compile Include="Scripts\Gate3\Gate3Object.cs" />
     <Compile Include="Scripts\Gate3\HitCube.cs" />
+    <Compile Include="Scripts\Gate3\HitCapsule.cs" />
+    <Compile Include="Scripts\Gate3\HitSphere.cs" />
+    <Compile Include="Scripts\Gate3\CapsuleCollision.cs" />
+    <Compile Include="Scripts\Gate3\SphereCollision.cs" />
     <Compile Include="Scripts\Gate3\TwoObjectCollision.cs" />
     <Compile Include="Scripts\Gate3\KeyMover.cs" />
     <Compile Include="Scripts\MathUtility.cs" />

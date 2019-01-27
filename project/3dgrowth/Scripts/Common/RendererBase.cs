@@ -18,6 +18,7 @@ namespace _3dgrowth
         protected InputLayout _inputLayout;
         protected Effect _effect;
         protected Vector3 _position = Vector3.Zero;
+        protected Vector3 _rotation = Vector3.Zero;
         protected Vector3 _cameraPosition = new Vector3(0, 0, -3f);
         protected float _scale = 1;
 
@@ -25,6 +26,7 @@ namespace _3dgrowth
 
         public virtual Vector3 EyePosition => _cameraPosition;
         public virtual Vector3 ModelPosition => UseModel ? _position : Vector3.Zero;
+        public virtual Vector3 ModelEulerAngle => UseModel ? _rotation : Vector3.Zero;
 
         protected virtual Vector3 CameraDirection => new Vector3();
         protected virtual Vector3 CameraAxis => new Vector3(0, 1, 0);
@@ -90,6 +92,11 @@ namespace _3dgrowth
         public virtual void SetPosition(Vector3 position)
         {
             _position = position;
+        }
+
+        public virtual void SetRotation(Vector3 rotation)
+        {
+            _rotation = rotation;
         }
 
         public virtual void SetCamera(Vector3 position)
@@ -168,6 +175,8 @@ namespace _3dgrowth
         public virtual void SetView()
         {
             Matrix model = Matrix.Translation(ModelPosition);
+            Matrix rotate = Matrix.RotationX(ModelEulerAngle.X) * Matrix.RotationY(ModelEulerAngle.Y) *
+                            Matrix.RotationZ(ModelEulerAngle.Z);
 
             Matrix view = Matrix.LookAtLH(
                 EyePosition,
@@ -182,7 +191,7 @@ namespace _3dgrowth
                 Zfar
             );
 
-            _effect.GetVariableByName("Model").AsMatrix().SetMatrix(model);
+            _effect.GetVariableByName("Model").AsMatrix().SetMatrix(model * rotate);
             _effect.GetVariableByName("ViewProjection").AsMatrix().SetMatrix(view * projection);
         }
 

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.DirectX.DirectInput;
-using SlimDX;
 using SlimDX.Direct3D11;
 
 namespace _3dgrowth
@@ -19,8 +13,8 @@ namespace _3dgrowth
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private HitCube _base;
-        private HitCube _move;
+        private HitCapsule _base;
+        private HitCapsule _move;
         private TwoObjectCollision _objectController;
 
         private System.Windows.Forms.Label label1;
@@ -37,9 +31,9 @@ namespace _3dgrowth
             _deviceSetting.InitializeDevice(this);
             _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain, Width, Height);
             InitializeViewport();
-            _base = new HitCube(_deviceSetting.Device, this);
-            _move = new HitCube(_deviceSetting.Device, this);
-            _objectController = new BoxAABB();
+            _base = new HitCapsule(_deviceSetting.Device, this);
+            _move = new HitCapsule(_deviceSetting.Device, this);
+            _objectController = new CapsuleCollision();
             _objectController.SetObject(_base, _move);
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
