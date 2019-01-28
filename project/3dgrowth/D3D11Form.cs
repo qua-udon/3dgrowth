@@ -13,9 +13,8 @@ namespace _3dgrowth
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private HitCapsule _base;
-        private HitCapsule _move;
-        private TwoObjectCollision _objectController;
+        private HitSphere _base;
+        private RayCast _objectController;
 
         private System.Windows.Forms.Label label1;
 
@@ -31,10 +30,9 @@ namespace _3dgrowth
             _deviceSetting.InitializeDevice(this);
             _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain, Width, Height);
             InitializeViewport();
-            _base = new HitCapsule(_deviceSetting.Device, this);
-            _move = new HitCapsule(_deviceSetting.Device, this);
-            _objectController = new CapsuleCollision();
-            _objectController.SetObject(_base, _move);
+            _base = new HitSphere(_deviceSetting.Device, this);
+            _objectController = new RayCast();
+            _objectController.SetObject(_base);
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();
         }
@@ -52,7 +50,6 @@ namespace _3dgrowth
             _deviceSetting.Dispose();
             _renderTargetting.Dispose();
             _base.Dispose();
-            _move.Dispose();
             base.OnFormClosed(e);
         }
 

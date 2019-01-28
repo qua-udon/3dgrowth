@@ -12,10 +12,13 @@ namespace _3dgrowth
         protected override System.Array IndexList => GetCapsuleIndexes();
         protected override System.Array VerticeList => GetCapsuleVertices();
 
-        private double _radius = 0.5d;
         private double _height = 1d;
         private int _separateX = 20;
         private int _separateY = 20;
+
+        public Vector3 Bottom => ModelPosition - Vector3.UnitY.RotateByAxis(MathUtility.Axis.Z, - ModelEulerAngle.Z) * ((float) _height * 0.5f);
+        public Vector3 Top => ModelPosition + Vector3.UnitY.RotateByAxis(MathUtility.Axis.Z, - ModelEulerAngle.Z) * ((float)_height * 0.5f);
+        public Vector3 AxisVec => Top - Bottom;
 
         public HitCapsule(Device device, Form form) : base(device, form)
         {
@@ -93,9 +96,9 @@ namespace _3dgrowth
                         phi = Math.PI * 2d * (double)x / (double)_separateX;
                         double cylOffset = y > 15 ? -_height / 2d : _height / 2d;
                         double cylHeight = y > 15 ? -Math.Cos(theta) : Math.Cos(theta);
-                        xPos = _radius * Math.Sin(theta) * Math.Cos(phi);
-                        yPos = _radius * cylHeight + cylOffset;
-                        zPos = _radius * Math.Sin(theta) * Math.Sin(phi);
+                        xPos = _scale * Math.Sin(theta) * Math.Cos(phi);
+                        yPos = _scale * cylHeight + cylOffset;
+                        zPos = _scale * Math.Sin(theta) * Math.Sin(phi);
                         u = (x * 2) % _separateX == 0 ? 1d : (double)((x * 2) % _separateX) / _separateX;
                         v = (double)(y % _separateY) / _separateY;
 
@@ -124,9 +127,9 @@ namespace _3dgrowth
                     else
                     {
                         phi = Math.PI * 2d * (double)x / (double)_separateX;
-                        xPos = _radius * Math.Cos(phi);
+                        xPos = _scale * Math.Cos(phi);
                         yPos = _height / 2d - ((y - 4) * (_height * 2 / _separateY));
-                        zPos = _radius * Math.Sin(phi);
+                        zPos = _scale * Math.Sin(phi);
                         u = (x * 2) % _separateX == 0 ? 1d : (double)((x * 2) % _separateX) / _separateX;
                         v = (double)(y % _separateY) / _separateY;
 
