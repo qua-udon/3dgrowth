@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Microsoft.DirectX.DirectInput;
 
 namespace _3dgrowth
@@ -42,7 +43,7 @@ namespace _3dgrowth
             var mouseState = _device.CurrentMouseState;
             var buttonState = mouseState.GetMouseButtons();
             onMousePointerDownCallback?.Invoke(buttonState[0] != 0);
-            onMouseInputHandleCallback?.Invoke(mouseState.X, mouseState.Y, mouseState.Z);
+            onMouseInputHandleCallback?.Invoke(Cursor.Position.X, Cursor.Position.Y, 0);
         }
 
         public bool CheckKeyBoardInput(Key key)

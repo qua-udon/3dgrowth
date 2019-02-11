@@ -43,6 +43,12 @@ namespace _3dgrowth
             };
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _constantBuffer.Dispose();
+        }
+
         private struct Constant
         {
             public int IsHit;

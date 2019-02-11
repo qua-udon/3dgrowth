@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
 using Microsoft.DirectX;
 using Microsoft.DirectX.DirectInput;
+using Action = System.Action;
 
 namespace _3dgrowth
 {
@@ -11,8 +16,10 @@ namespace _3dgrowth
         private bool _isPointerDown;
         public bool IsPointerDown => _isPointerDown;
 
-        private Vector3 _pointer;
-        public Vector3 Pointer => _pointer;
+        private Point _pointer;
+        public Point Pointer => _pointer;
+
+        public Action onMousePointerDownStateChangedCallback;
 
         public Action<int, int> onMousePointerChanged;
 
@@ -33,13 +40,31 @@ namespace _3dgrowth
 
         public virtual void OnMousePositionChanged(int x, int y, int z)
         {
-            _pointer = new Vector3(x, y, z);
+
         }
 
         public virtual void SetEvent()
         {
-            _detector.onMousePointerDownCallback = OnMousePointerDowned;
+            _detector.onMousePointerDownCallback = isDown =>
+            {
+                if (_isPointerDown == isDown)
+                {
+                    return;
+                }
+
+                _isPointerDown = isDown;
+                if (!isDown)
+                {
+                    return;
+                }
+                onMousePointerDownStateChangedCallback?.Invoke();
+            };
             _detector.onMouseInputHandleCallback = OnMousePositionChanged;
+        }
+
+        public void MouseClick(object sender, MouseEventArgs e)
+        {
+            _pointer = Cursor.Position;
         }
     }
 }

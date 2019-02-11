@@ -32,6 +32,7 @@ namespace _3dgrowth
             InitializeViewport();
             _base = new HitSphere(_deviceSetting.Device, this);
             _objectController = new RayCast();
+            _objectController.SetForm(this);
             _objectController.SetObject(_base);
             _timer.ontickedCallbackPerFrame += MainLoop;
             _timer.StartTimer();

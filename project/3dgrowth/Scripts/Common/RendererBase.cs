@@ -28,14 +28,29 @@ namespace _3dgrowth
         public virtual Vector3 ModelPosition => UseModel ? _position : Vector3.Zero;
         public virtual Vector3 ModelEulerAngle => UseModel ? _rotation : Vector3.Zero;
 
+        public Matrix ModelMat => Matrix.Translation(ModelPosition) * RotateMat;
+        public Matrix RotateMat => Matrix.RotationX(ModelEulerAngle.X) * Matrix.RotationY(ModelEulerAngle.Y) *
+                        Matrix.RotationZ(ModelEulerAngle.Z);
+        public Matrix ViewMat => Matrix.LookAtLH(
+            EyePosition,
+            CameraDirection,
+            CameraAxis
+        );
+        public Matrix ProjectionMat => Matrix.PerspectiveFovLH(
+            Fov,
+            Aspect,
+            Znear,
+            Zfar
+        );
+
         protected virtual Vector3 CameraDirection => new Vector3();
         protected virtual Vector3 CameraAxis => new Vector3(0, 1, 0);
 
         protected virtual bool UseModel => false;
         protected virtual float Fov => (float)System.Math.PI / 2;
         protected virtual float Aspect => _form.ClientSize.Width / _form.ClientSize.Height;
-        protected virtual float Znear => 0.1f;
-        protected virtual float Zfar => 1000;
+        public virtual float Znear => 0.1f;
+        public virtual float Zfar => 1000;
 
         protected virtual string ShaderSource => Properties.Resource1.Ambient;
 
