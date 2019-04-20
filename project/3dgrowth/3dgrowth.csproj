@@ -117,9 +117,12 @@
     <Compile Include="Scripts\Gate3\HitCapsule.cs" />
     <Compile Include="Scripts\Gate3\HitSphere.cs" />
     <Compile Include="Scripts\Gate3\CapsuleCollision.cs" />
+    <Compile Include="Scripts\Gate3\RayCast.cs" />
     <Compile Include="Scripts\Gate3\SphereCollision.cs" />
     <Compile Include="Scripts\Gate3\TwoObjectCollision.cs" />
     <Compile Include="Scripts\Gate3\KeyMover.cs" />
+    <Compile Include="Scripts\Gate4\FBXManager.cs" />
+    <Compile Include="Scripts\Gate4\FBXRenderer.cs" />
     <Compile Include="Scripts\MathUtility.cs" />
     <EmbeddedResource Include="D3D11Form.resx">
       <DependentUpon>D3D11Form.cs</DependentUpon>
@@ -128,6 +131,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="fbx_growth.fbx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -145,6 +149,7 @@
     <Content Include="BlinnPhong.fx" />
     <Content Include="Ambient.fx" />
     <Content Include="gate3.fx" />
+    <None Include="Resources\fbx_growth.png" />
     <Content Include="WireFrame.fx" />
     <Content Include="Lambert.fx" />
     <Content Include="EffectTest.fx" />

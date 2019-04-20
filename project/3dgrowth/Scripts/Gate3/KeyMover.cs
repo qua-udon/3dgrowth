@@ -24,6 +24,7 @@ namespace _3dgrowth
         public Action OnQKeyAction;
         public Action OnWKeyAction;
         public Action OnSKeyAction;
+        public Action OnAKeyAction;
 
         public KeyMover()
         {
@@ -36,6 +37,7 @@ namespace _3dgrowth
             _detector.SetDownKey(Key.Q);
             _detector.SetDownKey(Key.W);
             _detector.SetDownKey(Key.S);
+            _detector.SetDownKey(Key.A);
         }
 
         public void OnUpdate()
@@ -78,6 +80,11 @@ namespace _3dgrowth
             if (_detector.CheckKeyBoardDownInputRegister(Key.S))
             {
                 OnSKeyAction?.Invoke();
+            }
+
+            if (_detector.CheckKeyBoardDownInputRegister(Key.A))
+            {
+                OnAKeyAction?.Invoke();
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using Microsoft.DirectX.DirectInput;
 using SlimDX;
 using SlimDX.D3DCompiler;
@@ -15,20 +17,21 @@ namespace _3dgrowth
         protected override System.Array IndexList => GetSphereIndexes();
         protected override System.Array VerticeList => GetSphereVertices();
 
-        protected override string ShaderSource => Properties.Resource1.BlinnPhong;
+        protected override string ShaderSource => Properties.Resource1.Lambert;
 
         private SlimDX.Direct3D11.Buffer _constantBuffer;
         private DirectInputDetector _detector;
-        private bool _isWire;
 
         private double _radius = 1d;
         private int _separateX = 20;
         private int _separateY = 20;
 
+        public override Image TextureImage => Properties.Resource1.Penguins;
+        public override ImageFormat TextureFormat => ImageFormat.Jpeg;
+
         public DrawSphere(Device device, System.Windows.Forms.Form form) : base(device, form)
         {
-            _detector = new DirectInputDetector(Microsoft.DirectX.DirectInput.SystemGuid.Keyboard);
-            _detector.SetDownKey(Microsoft.DirectX.DirectInput.Key.D2);
+
         }
 
         public override void Dispose()
@@ -47,28 +50,6 @@ namespace _3dgrowth
                     SizeInBytes = sizeof(float) * 4,
                     BindFlags = BindFlags.ConstantBuffer
                 });
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
-            if (_detector.CheckKeyBoardDownInputRegister(Key.D2))
-            {
-                _isWire = !_isWire;
-            }
-
-            if (_isWire)
-            {
-                using (ShaderBytecode shader = ShaderBytecode.Compile(Properties.Resource1.WireFrame, "fx_5_0", ShaderFlags.None, SlimDX.D3DCompiler.EffectFlags.None))
-                {
-                    _effect = new Effect(_device, shader);
-                }
-                SetView();
-                SetEyePositionBuffer();
-                PreDraw();
-                _device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.LineList;
-                _device.ImmediateContext.DrawIndexed(IndexSize, 0, 0);
-            }
         }
 
         private void SetEyePositionBuffer()

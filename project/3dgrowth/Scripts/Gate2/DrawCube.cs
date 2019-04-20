@@ -36,25 +36,25 @@ namespace _3dgrowth
         {
             new VertexOutput
                     {
-                        Position = new Vector3(-1, 1, 0),
+                        Position = new Vector3(-_scale, _scale, 0),
                         TextureCoordinate = new Vector2(0, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, -1, 0),
+                        Position = new Vector3(_scale, -_scale, 0),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, -1, 0),
+                        Position = new Vector3(-_scale, -_scale, 0),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, 1, 0),
+                        Position = new Vector3(_scale, _scale, 0),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
@@ -62,25 +62,25 @@ namespace _3dgrowth
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, 1, 2),
+                        Position = new Vector3(-_scale, _scale, 0.01f),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, -1, 2),
+                        Position = new Vector3(_scale, -_scale, 0.01f),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, -1, 2),
+                        Position = new Vector3(-_scale, -_scale, 0.01f),
                         TextureCoordinate = new Vector2(0, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, 1, 2),
+                        Position = new Vector3(_scale, _scale, 0.01f),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
@@ -88,25 +88,25 @@ namespace _3dgrowth
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, 1, 2),
+                        Position = new Vector3(-_scale, _scale, 0.01f),
                         TextureCoordinate = new Vector2(1, 0)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, -1, 2),
+                        Position = new Vector3(_scale, -_scale, 0.01f),
                         TextureCoordinate = new Vector2(0, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(-1, -1, 2),
+                        Position = new Vector3(-_scale, -_scale, 0.01f),
                         TextureCoordinate = new Vector2(1, 1)
                     },
 
                     new VertexOutput
                     {
-                        Position = new Vector3(1, 1, 2),
+                        Position = new Vector3(_scale, _scale, 0.01f),
                         TextureCoordinate = new Vector2(0, 0)
                     },
         };

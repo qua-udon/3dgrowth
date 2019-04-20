@@ -45,26 +45,14 @@ namespace _3dgrowth
 
         public virtual void SetEvent()
         {
-            _detector.onMousePointerDownCallback = isDown =>
-            {
-                if (_isPointerDown == isDown)
-                {
-                    return;
-                }
-
-                _isPointerDown = isDown;
-                if (!isDown)
-                {
-                    return;
-                }
-                onMousePointerDownStateChangedCallback?.Invoke();
-            };
-            _detector.onMouseInputHandleCallback = OnMousePositionChanged;
+            _detector.onMousePointerDownCallback += OnMousePointerDowned;
+            _detector.onMouseInputHandleCallback += OnMousePositionChanged;
         }
 
         public void MouseClick(object sender, MouseEventArgs e)
         {
             _pointer = Cursor.Position;
+            onMousePointerDownStateChangedCallback?.Invoke();
         }
     }
 }

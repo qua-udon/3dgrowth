@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using SlimDX;
 using SlimDX.Direct3D11;
 
 namespace _3dgrowth
@@ -13,8 +14,16 @@ namespace _3dgrowth
 
         private DeviceSetting _deviceSetting = new DeviceSetting();
         private RenderTargetting _renderTargetting;
-        private HitSphere _base;
-        private RayCast _objectController;
+        private FBXRenderer _base;
+
+        protected KeyMover _objectMover;
+        protected MouseRotator _rotator;
+
+        protected Vector3 _cameraPosition = Vector3.UnitZ * -2;
+        private Vector3 _cachedPosition;
+        private float _moveScale = 0.15f;
+        private int time = 0;
+        private bool _isPlay;
 
         private System.Windows.Forms.Label label1;
 
@@ -30,19 +39,55 @@ namespace _3dgrowth
             _deviceSetting.InitializeDevice(this);
             _renderTargetting = new RenderTargetting(_deviceSetting.Device, _deviceSetting.SwapChain, Width, Height);
             InitializeViewport();
-            _base = new HitSphere(_deviceSetting.Device, this);
-            _objectController = new RayCast();
-            _objectController.SetForm(this);
-            _objectController.SetObject(_base);
+            _base = new FBXRenderer(_deviceSetting.Device, this, System.AppDomain.CurrentDomain.BaseDirectory + "space_ship.fbx");
             _timer.ontickedCallbackPerFrame += MainLoop;
+            _timer.onStart += SetInput;
             _timer.StartTimer();
+        }
+
+        private void SetInput()
+        {
+            _rotator = new MouseRotator();
+            _rotator.SetEvent();
+
+            _objectMover = new KeyMover();
+            _objectMover.OnWKeyAction = () =>
+            {
+                Vector3 delta = (_cachedPosition * -1);
+                delta.Normalize();
+                _cachedPosition += delta * _moveScale;
+            };
+            _objectMover.OnSKeyAction = () =>
+            {
+                Vector3 delta = _cachedPosition;
+                delta.Normalize();
+                _cachedPosition += delta * _moveScale;
+            };
+            _objectMover.OnAKeyAction = () =>
+            {
+                time = 0;
+                _isPlay = true;
+            };
+            _cachedPosition = _cameraPosition;
         }
 
         private void MainLoop()
         {
             _renderTargetting.Clear();
-            _objectController.OnUpdate();
+            _rotator.OnUpdate();
+            _cameraPosition = _cachedPosition.RotateByAxis(MathUtility.Axis.Y, -_rotator.AngleX).RotateByAxis(MathUtility.Axis.X, -_rotator.AngleY);
+            _objectMover.OnUpdate();
+            if (_isPlay)
+            {
+                _base.SetFrame(time % 120);
+                time++;
+            }
+            _base.SetCamera(_cameraPosition);
+            _base.InitializeContent();
+            _base.SetView();
+            _base.Draw();
             _renderTargetting.PresentView();
+            _base.Dispose();
             SetFPSView();
         }
 

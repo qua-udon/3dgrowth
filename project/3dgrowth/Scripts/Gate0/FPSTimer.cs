@@ -15,6 +15,7 @@ namespace _3dgrowth
         private const double WAIT_TIME = 1000.0f / 60.0f;
         public double GlobalTime;
 
+        public Action onStart;
         public Action ontickedCallbackPerFrame;
 
         private readonly D3D11Form _form;
@@ -26,6 +27,7 @@ namespace _3dgrowth
 
         public void StartTimer()
         {
+            onStart?.Invoke();
             GlobalTime = (double)Environment.TickCount;
             GlobalTime += WAIT_TIME;
             while (_form.Created)

@@ -174,6 +174,16 @@ namespace _3dgrowth.Properties {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap fbx_growth {
+            get {
+                object obj = ResourceManager.GetObject("fbx_growth", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   matrix ViewProjection;
         ///matrix Model;
         ///Texture2D diffuseTexture;
@@ -184,7 +194,7 @@ namespace _3dgrowth.Properties {
         ///
         ///cbuffer Constant
         ///{
-        ///    bool IsHit;
+        ///    int IsHit;
         ///};
         ///
         ///struct VertexPositionTexture
@@ -200,7 +210,8 @@ namespace _3dgrowth.Properties {
         ///    output.Position = mul(output.Position, ViewProjection);
         ///    return output;
         ///}
-        ///        /// [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///
+        /// [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string gate3 {
             get {
@@ -246,6 +257,26 @@ namespace _3dgrowth.Properties {
         internal static System.Drawing.Bitmap Penguins {
             get {
                 object obj = ResourceManager.GetObject("Penguins", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap space_ship_d {
+            get {
+                object obj = ResourceManager.GetObject("space_ship_d", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap space_ship_n {
+            get {
+                object obj = ResourceManager.GetObject("space_ship_n", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

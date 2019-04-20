@@ -23,15 +23,15 @@ VertexOutput TestVertexShader(VertexOutput input)
 
 float4 TestPixelShader(VertexOutput input) : SV_Target
 {
-	float4 tex = diffuseTexture.Sample(mySampler, input.TextureCoordinate);
 	float3 lightColor = float3(1, 1, 1);
 	float3 lightDirection = float3(1, -1, 1);
+    float4 tex = diffuseTexture.Sample(mySampler, input.TextureCoordinate);
 
 	float3 normal = normalize(input.Normal.xyz);
 	float3 light = normalize(-lightDirection);
 	float3 i = saturate(dot(light, normal)) * lightColor;
 
-	return float4(i * tex.xyz, 1.0);
+	return float4(tex.xyz, 1.0);
 }
 
 technique10 TestTechnique

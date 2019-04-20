@@ -19,7 +19,7 @@ namespace _3dgrowth
         protected Effect _effect;
         protected Vector3 _position = Vector3.Zero;
         protected Vector3 _rotation = Vector3.Zero;
-        protected Vector3 _cameraPosition = new Vector3(0, 0, -3f);
+        protected Vector3 _cameraPosition = new Vector3(0, 0, -1.5f);
         protected float _scale = 1;
 
         protected virtual int IndexSize => 6;
@@ -27,6 +27,9 @@ namespace _3dgrowth
         public virtual Vector3 EyePosition => _cameraPosition;
         public virtual Vector3 ModelPosition => UseModel ? _position : Vector3.Zero;
         public virtual Vector3 ModelEulerAngle => UseModel ? _rotation : Vector3.Zero;
+
+        public virtual Image TextureImage => Properties.Resource1.space_ship_d;
+        public virtual ImageFormat TextureFormat => ImageFormat.Png;
 
         public Matrix ModelMat => Matrix.Translation(ModelPosition) * RotateMat;
         public Matrix RotateMat => Matrix.RotationX(ModelEulerAngle.X) * Matrix.RotationY(ModelEulerAngle.Y) *
@@ -214,8 +217,8 @@ namespace _3dgrowth
         {
             using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
             {
-                Image img = Properties.Resource1.Penguins;
-                img.Save(ms, ImageFormat.Jpeg);
+                Image img = TextureImage;
+                img.Save(ms, ImageFormat.Png);
 
                 using (ShaderResourceView texture = ShaderResourceView.FromMemory(_device, ms.ToArray()))
                 {
